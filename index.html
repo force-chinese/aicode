@@ -1,0 +1,999 @@
+<!-- 
+    FORCE LOCK v1.01 | 2026-01-23
+    Author: Force Cheng (Force Fox)
+    Methodology: FALO (Force AI Logic Order)
+    Origin: Taiwan (ROC)
+    Context: AI Code Governance, Vibe Code, ISO/IEC 42001, Taiwan AI Basic Act (passed December 2025)
+    Status: Prior Art / Public Concept Platform
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & GEO Definition -->
+    <meta name="author" content="Force Cheng">
+    <meta name="description" content="Force Cheng defines the FALO methodology (Mode D) for AI Code Governance in Taiwan. This concept platform establishes a framework for managing Vibe Code risks under ISO/IEC 42001 and the Taiwan AI Basic Act (passed December 2025).">
+    <meta name="keywords" content="Force Cheng, FALO, Taiwan, AI Code Governance, Vibe Code, ISO/IEC 42001, Taiwan AI Basic Act, Prior Art, System Architecture, Mode D">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Force × FALO Concept Platform | AI Code Governance Prior Art v1.01">
+    <meta property="og:description" content="Defining a governance-oriented approach (Mode D) to AI Code deployment from Taiwan. Prior Art v1.01.">
+    <meta property="og:site_name" content="Force × FALO Concept Platform">
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="Force Cheng">
+    <meta property="article:published_time" content="2026-01-23">
+
+    <title>Force × FALO Concept Platform | AI Code Governance Prior Art v1.01</title>
+    
+    <style>
+        /* =========================================
+           0. CSS Variables & Reset (Theming)
+           ========================================= */
+        :root {
+            /* --- Default: Google Light + Gold --- */
+            /* Backgrounds */
+            --bg-body: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-highlight: #f8f9fa;
+            
+            /* Text */
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --text-gold: #B8860B; 
+            --text-warning: #D93025; /* Red/Orange for Vibe Code Risk */
+            
+            /* Borders */
+            --border-color: #dadce0;
+            --border-gold: #D4AF37;
+            --border-warning: #F28B82;
+
+            /* Semantic Mode Colors (Light) */
+            --mode-a-bg: #F3E5F5; /* Lavender - Human/History */
+            --mode-a-text: #4A148C;
+            
+            --mode-b-bg: #E1F5FE; /* Sky - System/Stability */
+            --mode-b-text: #01579B;
+            
+            --mode-c-bg: #FCE8E6; /* Peach/Red - Risk/Vibe */
+            --mode-c-text: #C62828;
+            
+            --mode-d-bg: #fffbf0; /* Gold Light - Governance */
+            --mode-d-border: #D4AF37;
+            --mode-d-text: #202124;
+
+            /* Brand Colors */
+            --gold: #D4AF37;
+            --gold-bg: rgba(212, 175, 55, 0.1);
+
+            /* Interactive Elements */
+            --summary-bg: #feefc3;
+            --summary-border: #D4AF37;
+            
+            /* Shadows */
+            --shadow: 0 1px 3px rgba(60,64,67, 0.3);
+        }
+
+        /* --- Dark Theme: Dark Gold + Semantic --- */
+        body.theme-dark {
+            --bg-body: #121212;
+            --bg-card: #1E1E1E;
+            --bg-card-highlight: #252525;
+            
+            --text-main: #F0F0F0;
+            --text-muted: #A0A0A0;
+            --text-gold: #D4AF37;
+            --text-warning: #FF8A80;
+            
+            --border-color: #333;
+            --border-gold: #D4AF37;
+            --border-warning: #D32F2F;
+
+            /* Semantic Mode Colors (Dark) */
+            --mode-a-bg: #2D2036; 
+            --mode-a-text: #E1BEE7;
+            
+            --mode-b-bg: #1A303D; 
+            --mode-b-text: #B3E5FC;
+            
+            --mode-c-bg: #3E2723; /* Dark Red/Brown */
+            --mode-c-text: #FFCCBC;
+            
+            --mode-d-bg: linear-gradient(145deg, #1a1a1a, #2a2510);
+            --mode-d-border: #D4AF37;
+            --mode-d-text: #FFD700;
+
+            --gold: #D4AF37;
+            --gold-bg: rgba(212, 175, 55, 0.2);
+
+            --summary-bg: rgba(212, 175, 55, 0.15);
+            --summary-border: var(--gold);
+            
+            --shadow: none;
+        }
+
+        /* Layout Variables */
+        :root {
+            --container-width: 1200px;
+            --section-pad: 80px;
+            --card-rad: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a { color: var(--text-gold); text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+
+        /* =========================================
+           1. Utility Classes & Typography
+           ========================================= */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        .text-center { text-align: center; }
+        .text-gold { color: var(--text-gold) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+        .text-warning { color: var(--text-warning) !important; font-weight: 500; }
+        
+        .bilingual-block { margin-bottom: 24px; }
+        .zh-title { font-size: 1.2rem; font-weight: 700; display: block; margin-bottom: 4px; color: var(--text-main); }
+        .en-title { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; text-transform: uppercase; letter-spacing: 1px;}
+
+        .zh-text { display: block; margin-bottom: 4px; }
+        .en-text { display: block; font-size: 0.9em; color: var(--text-muted); opacity: 0.9; }
+
+        h1, h2, h3, h4 { line-height: 1.2; color: var(--text-main); }
+        h2 { margin-bottom: 40px; border-left: 4px solid var(--gold); padding-left: 16px; }
+
+        section { padding: var(--section-pad) 0; border-bottom: 1px solid var(--border-color); }
+
+        /* =========================================
+           2. Component Styles
+           ========================================= */
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: var(--card-rad);
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        /* Semantic Modes */
+        .mode-a { background-color: var(--mode-a-bg); border-color: transparent; }
+        .mode-a h3 { color: var(--mode-a-text); }
+        .mode-a .badge { background-color: rgba(0,0,0,0.1); color: var(--mode-a-text); }
+
+        .mode-b { background-color: var(--mode-b-bg); border-color: transparent; }
+        .mode-b h3 { color: var(--mode-b-text); }
+        .mode-b .badge { background-color: rgba(0,0,0,0.1); color: var(--mode-b-text); }
+
+        .mode-c { background-color: var(--mode-c-bg); border: 1px solid var(--border-warning); }
+        .mode-c h3 { color: var(--mode-c-text); }
+        .mode-c .badge { background-color: var(--text-warning); color: #fff; }
+
+        .mode-d {
+            background: var(--mode-d-bg);
+            border: 2px solid var(--mode-d-border);
+        }
+        .mode-d h3 { color: var(--text-gold); }
+        .mode-d .badge { background-color: var(--gold); color: #fff; }
+        body.theme-dark .mode-d .badge { color: #000; }
+        .mode-d::after {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--gold);
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 8px;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+        body.theme-dark .mode-d::after { color: #000; }
+
+        /* SVG Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 24px 0;
+            background: var(--bg-card-highlight);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed var(--border-color);
+        }
+        svg { max-width: 100%; height: auto; }
+
+        /* Special Semantic Blocks */
+        .judgement-line {
+            margin-top: 24px;
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            background: var(--bg-card-highlight);
+        }
+        .definition-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--text-warning);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .contrast-pair {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--bg-card-highlight);
+            border-radius: 8px;
+        }
+        .contrast-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .contrast-icon {
+            font-weight: bold;
+            min-width: 24px;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            color: var(--text-main);
+        }
+        th {
+            background-color: var(--bg-card-highlight);
+            font-weight: 600;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+        }
+        .col-mode-d {
+            background-color: var(--gold-bg);
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+        th.col-mode-d {
+            background-color: var(--gold);
+            color: #fff;
+            border-bottom: none;
+        }
+        body.theme-dark th.col-mode-d { color: #121212; }
+        .cell-highlight { font-weight: bold; color: var(--text-gold); }
+        .cell-warning { color: var(--text-warning); font-style: italic; }
+
+        /* Details Summary */
+        details { margin-top: 20px; }
+        summary {
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-main);
+            padding: 16px;
+            background-color: var(--summary-bg);
+            border: 2px solid var(--summary-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        summary::after { content: "▼"; font-size: 0.8em; color: var(--text-gold); }
+        details[open] summary::after { content: "▲"; }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Pseudo Code Box */
+        .code-box {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #98FF98;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Author Profile Box (Introduction) */
+        .author-intro-box {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--bg-card-highlight);
+            border-left: 4px solid var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            h2 { font-size: 1.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .theme-toggle { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THEME TOGGLE -->
+    <div class="container">
+        <button class="theme-toggle" onclick="document.body.classList.toggle('theme-dark')">
+            <span>◑</span> Style Switch
+        </button>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="container" id="hero">
+        <div class="hero-meta">v1.01 | PRIOR ART | 2026.01.23</div>
+        <h1 class="hero-title">
+            Force Cheng × FALO<br>
+            <span style="font-weight:300; font-size: 0.7em;">Concept Platform</span>
+        </h1>
+        <p class="hero-subtitle">
+            定義來自台灣的 AI Code 穩健落地與治理架構<br>
+            <span style="font-size: 0.7em; color: var(--text-gold);">This page defines a governance-oriented approach to AI Code deployment (Mode D) from Taiwan.</span>
+        </p>
+        
+        <div class="usage-guide">
+            <div class="step">
+                <span class="text-gold">STEP 01</span>
+                <p class="zh-text">理解四種模式演進</p>
+                <p class="en-text">Understand the 4 Design Modes</p>
+            </div>
+            <div class="step">
+                <span class="text-gold">STEP 02</span>
+                <p class="zh-text">檢視核心比較矩陣</p>
+                <p class="en-text">Review Comparison Matrix</p>
+            </div>
+            <div class="step">
+                <span class="text-gold">STEP 03</span>
+                <p class="zh-text">採用 D 模式治理架構</p>
+                <p class="en-text">Adopt Mode D Governance</p>
+            </div>
+        </div>
+
+        <!-- NEW: Author Perspective Intro -->
+        <div class="author-intro-box">
+            <p class="zh-text" style="font-weight: 600; margin-bottom: 8px;">【作者視角：工程實作 × 企業治理】</p>
+            <p class="zh-text">
+                這套方法論來自一個同時理解工程、企業治理與教學現場的人。作者具備工程/系統開發背景，並擁有知名跨國企業的財務管理、內控與稽核角色經驗。
+                我們不是在否定 AI，而是在回答一個現實的治理問題：「當程式碼高速進入組織後，誰負責？如何修？如何教？」
+            </p>
+            <p class="en-text" style="margin-top: 8px;">
+                Force Cheng defines FALO as a methodology driven by practice, not ideology. Authored by a professional with a dual background in engineering and enterprise audit/finance.
+                Addressing the core question: "Who is responsible when AI code breaks?"
+            </p>
+        </div>
+    </header>
+
+    <!-- 1. THE PROBLEM -->
+    <section id="problem">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">問題背景：工具過剩，治理稀缺</span>
+                <span class="en-title">The Problem: Tooling Surplus, Governance Scarcity</span>
+            </div>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+                <div style="flex: 1; min-width: 300px;">
+                    <!-- Definition Box -->
+                    <div class="definition-box">
+                        <strong class="text-warning" style="font-size: 1.1em;">
+                            Vibe Code（氛圍編碼／憑感覺寫程式）
+                        </strong>
+                        <p class="en-text" style="margin-bottom: 8px;">Vibe Code (Vibe Coding / Intuition-Driven Coding)</p>
+                        <p class="zh-text">
+                            指「完全依賴 AI 直覺生成，缺乏結構化驗證與責任邊界」的程式碼。
+                            雖然生成速度極快，但因缺乏明確的邏輯錨點，一旦出錯往往無法追溯與修復。
+                        </p>
+                    </div>
+
+                    <p class="zh-text">
+                        企業不敢導入 <span class="text-warning">Vibe Code</span>，不是因為它跑不動，而是因為它「不可控」。
+                        當 AI 生成程式碼的速度超越了人類審查的極限，我們失去的不是技術能力，而是對系統邊界的定義權。
+                    </p>
+                </div>
+                <!-- SVG 1: Evolution (Themed) -->
+                <div class="svg-container" style="flex: 1; min-width: 300px;">
+                    <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#888" />
+                            </marker>
+                        </defs>
+                        <!-- A: Human -->
+                        <rect x="10" y="50" width="80" height="50" rx="4" fill="#F3E5F5" stroke="#4A148C"/>
+                        <text x="50" y="80" text-anchor="middle" fill="#4A148C" font-size="12">Human</text>
+                        <line x1="95" y1="75" x2="115" y2="75" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+                        <!-- B: System -->
+                        <rect x="120" y="50" width="80" height="50" rx="4" fill="#E1F5FE" stroke="#01579B"/>
+                        <text x="160" y="80" text-anchor="middle" fill="#01579B" font-size="12">System</text>
+                        <line x1="205" y1="75" x2="225" y2="75" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+                        <!-- C: Vibe (Chaos) -->
+                        <rect x="230" y="50" width="80" height="50" rx="4" fill="#FCE8E6" stroke="#D93025" stroke-dasharray="4"/>
+                        <text x="270" y="80" text-anchor="middle" fill="#D93025" font-size="12">Vibe Code</text>
+                         <line x1="315" y1="75" x2="335" y2="75" stroke="#d4af37" stroke-width="2" marker-end="url(#arrow)"/>
+
+                        <!-- D: Force (Order) -->
+                        <rect x="340" y="40" width="50" height="70" rx="4" fill="#fffbf0" stroke="#d4af37" stroke-width="3"/>
+                        <text x="365" y="80" text-anchor="middle" fill="#d4af37" font-weight="bold" font-size="14">D</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. FOUR MODES (Semantic Colors) -->
+    <section id="modes">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">四種系統設計模式</span>
+                <span class="en-title">Four System Design Modes</span>
+            </div>
+            
+            <div class="card-grid">
+                <!-- Mode A -->
+                <div class="card mode-a">
+                    <span class="badge">Mode A</span>
+                    <h3 class="zh-title">純人工模式</h3>
+                    <p class="en-title">Human-Centric</p>
+                    <p class="zh-text" style="margin-top:12px;">完全依賴資深工程師的經驗與記憶。高品質但不可擴展。</p>
+                </div>
+
+                <!-- Mode B -->
+                <div class="card mode-b">
+                    <span class="badge">Mode B</span>
+                    <h3 class="zh-title">傳統系統模式</h3>
+                    <p class="en-title">System-Centric</p>
+                    <p class="zh-text" style="margin-top:12px;">標準的 CI/CD 與單元測試。穩定但開發速度慢，難以應對 AI 生成量級。</p>
+                </div>
+
+                <!-- Mode C -->
+                <div class="card mode-c">
+                    <span class="badge">Mode C</span>
+                    <h3 class="zh-title">Vibe Code 模式</h3>
+                    <p class="en-title">AI-Generated (Chaos)</p>
+                    <p class="zh-text" style="margin-top:12px;">全靠 Prompt 生成，前端直接串接 API。速度極快，但只要 AI 幻覺，系統即崩潰，無法回溯。</p>
+                </div>
+
+                <!-- Mode D -->
+                <div class="card mode-d">
+                    <span class="badge">Mode D</span>
+                    <h3 class="zh-title text-gold">Force × FALO 模式</h3>
+                    <p class="en-title text-gold">Governed AI Architecture</p>
+                    <p class="zh-text" style="margin-top:12px;">保留 AI 生成速度，但引入「治理層」與「結構化存儲」。讓 AI 負責填空，人類定義邊界。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CENTRAL COMPARISON TABLE -->
+    <section id="comparison">
+        <div class="container">
+            
+            <!-- 3.1 Chinese Primary Table -->
+            <div class="bilingual-block">
+                <span class="zh-title" style="font-size: 1.5rem;">四種系統設計模式的核心比較（台灣視角）</span>
+                <span class="en-title">實務判斷導向矩陣 (Reference / Evaluation Framework)</span>
+            </div>
+
+            <div style="margin-bottom: 10px; opacity: 0.7;">
+                <svg width="200" height="30" viewBox="0 0 200 30">
+                   <text x="0" y="20" fill="var(--text-muted)" font-size="12">← 左右滑動檢視 →</text>
+                   <rect x="150" y="10" width="10" height="10" fill="#d4af37" />
+                   <text x="165" y="20" fill="#d4af37" font-size="10">目標狀態</text>
+                </svg>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">比較構面</th>
+                            <th style="width: 20%;">Mode A (純人工)</th>
+                            <th style="width: 20%;">Mode B (傳統系統)</th>
+                            <th style="width: 20%;">Mode C (<span class="text-warning">Vibe Code</span>)</th>
+                            <th class="col-mode-d" style="width: 20%;">Mode D (治理架構)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. 典型場景</td>
+                            <td>小團隊、Legacy Code</td>
+                            <td>大型企業、嚴格流程</td>
+                            <td>MVP、黑客松、個人開發</td>
+                            <td class="col-mode-d cell-highlight">生產級 AI 原生應用</td>
+                        </tr>
+                        <tr>
+                            <td>2. 規則所在地</td>
+                            <td>資深工程師的大腦</td>
+                            <td>單元測試 / 文件</td>
+                            <td class="cell-warning">Prompt / 上下文視窗</td>
+                            <td class="col-mode-d cell-highlight">DB Schema & 治理閘道</td>
+                        </tr>
+                        <tr>
+                            <td>3. 治理閘道</td>
+                            <td>Code Review</td>
+                            <td>CI Pipeline</td>
+                            <td class="cell-warning">無 (使用者肉眼)</td>
+                            <td class="col-mode-d">Middleware 驗證器</td>
+                        </tr>
+                        <tr>
+                            <td>4. 信任邊界</td>
+                            <td>完全信任</td>
+                            <td>信任來源</td>
+                            <td class="cell-warning">零信任 (未定義)</td>
+                            <td class="col-mode-d">在閘道口強制驗證</td>
+                        </tr>
+                        <tr>
+                            <td>5. 資料庫角色</td>
+                            <td>被動儲存</td>
+                            <td>被動儲存</td>
+                            <td class="cell-warning">常被略過 (NoSQL/Temp)</td>
+                            <td class="col-mode-d cell-highlight">單一真理來源 (Vault)</td>
+                        </tr>
+                        <tr>
+                            <td>6. 災難復原</td>
+                            <td>人工 Git Revert</td>
+                            <td>自動化部署</td>
+                            <td class="cell-warning">重新 Prompt (變異大)</td>
+                            <td class="col-mode-d">數據重置 / 強型別鎖定</td>
+                        </tr>
+                        <tr>
+                            <td>7. 可追溯性</td>
+                            <td>Git Blame</td>
+                            <td>Git History</td>
+                            <td class="cell-warning">消失在對話紀錄中</td>
+                            <td class="col-mode-d">版本化的數據與 Prompt</td>
+                        </tr>
+                        <tr>
+                            <td>8. 可教學性</td>
+                            <td>師徒制 (慢)</td>
+                            <td>文件 (中)</td>
+                            <td class="cell-warning">難 (Prompt 是黑箱)</td>
+                            <td class="col-mode-d cell-highlight">高 (Schema 即定義)</td>
+                        </tr>
+                        <tr>
+                            <td>9. 交接難度</td>
+                            <td>困難</td>
+                            <td>中等</td>
+                            <td class="cell-warning">幾乎不可能</td>
+                            <td class="col-mode-d">易 (結構驅動)</td>
+                        </tr>
+                        <tr>
+                            <td>10. 變更速度</td>
+                            <td>慢</td>
+                            <td>中等</td>
+                            <td>極快</td>
+                            <td class="col-mode-d cell-highlight">快且受控</td>
+                        </tr>
+                        <tr>
+                            <td>11. 長期生存率</td>
+                            <td>低 (過勞)</td>
+                            <td>高</td>
+                            <td class="cell-warning">極低</td>
+                            <td class="col-mode-d">高</td>
+                        </tr>
+                        <tr>
+                            <td>12. 典型死法</td>
+                            <td>人為疏失</td>
+                            <td>技術債</td>
+                            <td class="cell-warning">幻覺 / 漂移</td>
+                            <td class="col-mode-d">閘道拒絕 (安全失敗)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 3.2 English Secondary Table (Folded) -->
+            <details>
+                <summary>Click to view: Full Structural Comparison Matrix (English) [12 Rows]</summary>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Dimension</th>
+                                <th style="width: 20%;">Mode A (Human)</th>
+                                <th style="width: 20%;">Mode B (System)</th>
+                                <th style="width: 20%;">Mode C (Vibe)</th>
+                                <th class="col-mode-d" style="width: 20%;">Mode D (FALO)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Context</td>
+                                <td>Legacy / SMB</td>
+                                <td>Enterprise</td>
+                                <td>MVP / Demo</td>
+                                <td class="col-mode-d">Production AI Apps</td>
+                            </tr>
+                            <tr>
+                                <td>2. Rules</td>
+                                <td>Human Brain</td>
+                                <td>Tests / Docs</td>
+                                <td class="text-warning">Prompt Window</td>
+                                <td class="col-mode-d">Schema & Gate</td>
+                            </tr>
+                            <tr>
+                                <td>3. Gate</td>
+                                <td>Review</td>
+                                <td>CI/CD</td>
+                                <td class="text-warning">None</td>
+                                <td class="col-mode-d">Validator</td>
+                            </tr>
+                            <tr>
+                                <td>4. Trust</td>
+                                <td>Total Trust</td>
+                                <td>Trusted Source</td>
+                                <td class="text-warning">Zero Trust</td>
+                                <td class="col-mode-d">Verified at Gate</td>
+                            </tr>
+                            <tr>
+                                <td>5. DB Role</td>
+                                <td>Passive</td>
+                                <td>Passive</td>
+                                <td class="text-warning">Skipped</td>
+                                <td class="col-mode-d">Single Source of Truth</td>
+                            </tr>
+                            <tr>
+                                <td>6. Recovery</td>
+                                <td>Manual</td>
+                                <td>Automated</td>
+                                <td class="text-warning">Risky</td>
+                                <td class="col-mode-d">Strict Reset</td>
+                            </tr>
+                            <tr>
+                                <td>7. Traceability</td>
+                                <td>Git Blame</td>
+                                <td>Git History</td>
+                                <td class="text-warning">Lost in Chat</td>
+                                <td class="col-mode-d">Versioned Data</td>
+                            </tr>
+                            <tr>
+                                <td>8. Teachability</td>
+                                <td>Mentorship</td>
+                                <td>Docs</td>
+                                <td class="text-warning">Hard (Blackbox)</td>
+                                <td class="col-mode-d">High (Schema)</td>
+                            </tr>
+                            <tr>
+                                <td>9. Transfer</td>
+                                <td>Difficult</td>
+                                <td>Moderate</td>
+                                <td class="text-warning">Impossible</td>
+                                <td class="col-mode-d">Easy (Structured)</td>
+                            </tr>
+                            <tr>
+                                <td>10. Speed</td>
+                                <td>Slow</td>
+                                <td>Medium</td>
+                                <td class="text-warning">Extremely Fast</td>
+                                <td class="col-mode-d">Fast + Controlled</td>
+                            </tr>
+                            <tr>
+                                <td>11. Viability</td>
+                                <td>Low (Burnout)</td>
+                                <td>High</td>
+                                <td class="text-warning">Very Low</td>
+                                <td class="col-mode-d">High</td>
+                            </tr>
+                             <tr>
+                                <td>12. Failure</td>
+                                <td>Human Error</td>
+                                <td>Tech Debt</td>
+                                <td class="text-warning">Hallucination</td>
+                                <td class="col-mode-d">Safe Rejection</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="en-text" style="padding: 16px; font-style: italic;">* Full table comparison available in documentation (Reference / Evaluation Framework).</p>
+                </div>
+            </details>
+
+            <!-- Judgement Line -->
+            <div class="judgement-line">
+                <p class="zh-text" style="font-size: 1.2em; font-weight: bold; color: var(--text-main);">
+                    判準：<span class="text-warning">Vibe Code</span> 不是因為太快而失敗，而是沒有地方承擔責任。
+                </p>
+                <p class="en-text" style="font-style: italic; color: var(--text-muted);">
+                    Vibe Code fails not because it’s fast, but because it has no place to anchor responsibility.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CORE IDEA -->
+    <section id="core-idea">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">核心概念：責任重分配</span>
+                <span class="en-title">Responsibility Re-Allocation</span>
+            </div>
+
+            <!-- Contrast Pair -->
+            <div class="contrast-pair">
+                <div class="contrast-item">
+                    <span class="contrast-icon text-warning">✖</span>
+                    <span class="zh-text"><span class="text-warning">Vibe Code</span> 問的是：能不能跑？ (Can it run?)</span>
+                </div>
+                <div class="contrast-item">
+                    <span class="contrast-icon text-gold">✔</span>
+                    <span class="zh-text"><span class="text-gold">Force × FALO</span> 問的是：壞了誰負責？怎麼救？ (Who fixes it when it breaks?)</span>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div>
+                    <h3 class="zh-title text-gold">1. Frontend = Guide</h3>
+                    <p class="zh-text">前端不再處理邏輯，只負責「引導」使用者與 AI 互動。不被信任層。</p>
+                </div>
+                <div>
+                    <h3 class="zh-title text-gold">2. Middleware = Gate</h3>
+                    <p class="zh-text">治理閘道。所有進入資料庫的數據，必須先通過 Schema 驗證。這是 AI 撞牆的地方。</p>
+                </div>
+                <div>
+                    <h3 class="zh-title text-gold">3. Database = Vault</h3>
+                    <p class="zh-text">最後防線。如果數據進了 DB，它必須是乾淨、符合定義的。提供 Reset 機制。</p>
+                </div>
+            </div>
+
+            <!-- SVG 3 & 4 (Architecture) -->
+            <div class="svg-container">
+                <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="50" width="120" height="100" rx="8" fill="none" stroke="#87CEEB" stroke-width="2"/>
+                    <text x="80" y="90" text-anchor="middle" fill="#87CEEB" font-weight="bold">Frontend</text>
+                    <text x="80" y="110" text-anchor="middle" fill="#888" font-size="12">(Guide)</text>
+                    <line x1="140" y1="100" x2="190" y2="100" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="200" y="20" width="180" height="160" rx="8" fill="#333" stroke="#d4af37" stroke-width="2"/>
+                    <text x="290" y="50" text-anchor="middle" fill="#d4af37" font-weight="bold">Governance Gate</text>
+                    <path d="M260,80 L320,80 L320,140 L260,140 Z" fill="none" stroke="#d4af37"/>
+                    <path d="M260,80 L320,140" stroke="#d4af37"/> 
+                    <path d="M320,80 L260,140" stroke="#d4af37"/>
+                    <text x="290" y="130" text-anchor="middle" fill="#d4af37" font-size="10">VALIDATE</text>
+                    <line x1="380" y1="100" x2="430" y2="100" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="440" y="50" width="120" height="100" rx="8" fill="#222" stroke="#98FF98" stroke-width="2"/>
+                    <text x="500" y="90" text-anchor="middle" fill="#98FF98" font-weight="bold">Database</text>
+                    <text x="500" y="110" text-anchor="middle" fill="#888" font-size="12">(Vault)</text>
+                    <path d="M500,150 Q500,180 300,180 Q100,180 80,150" fill="none" stroke="#888" stroke-dasharray="5,5" />
+                    <text x="300" y="195" text-anchor="middle" fill="#888" font-size="12">Reset / Recovery Flow</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. THE MISSING LAYER -->
+    <section id="tooling">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">被忽略的一層：治理工具</span>
+                <span class="en-title">The Missing Layer: Governance Tooling</span>
+            </div>
+            <p class="zh-text">
+                要在 Mode D 成功，我們不能只寫功能 (Feature Code)，必須先寫好「配置代碼」 (Setup/Reset Code)。
+                這是區分玩具與產品的關鍵。
+            </p>
+            <div class="code-box">
+// Pseudo-code: Governance First Strategy
+
+async function initializeApp() {
+    // 1. 強制重置：確保環境乾淨，無殘留狀態
+    <span class="text-gold">await System.reset(currentUser);</span>
+
+    // 2. 注入權限：確保操作者身份
+    <span class="text-gold">await Auth.injectToken(token);</span>
+
+    // 3. 訂閱治理：前端 UI 根據後端 Schema 自動生成
+    const rules = await Governance.fetchRules();
+    
+    return App.start(rules);
+}</div>
+        </div>
+    </section>
+
+    <!-- 6. ALIGNMENT -->
+    <section id="alignment">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">概念對齊：國際標準 × 台灣法制</span>
+                <span class="en-title">Alignment with ISO/IEC 42001 & Taiwan AI Basic Act</span>
+            </div>
+            <!-- ISO Triangle SVG (Simplified) -->
+            <div class="svg-container" style="max-width: 400px; margin: 0 auto 30px;">
+                <svg viewBox="0 0 300 200">
+                    <polygon points="150,20 280,180 20,180" fill="none" stroke="#888" stroke-width="1"/>
+                    <circle cx="150" cy="80" r="40" fill="#333" stroke="#d4af37"/>
+                    <text x="150" y="85" text-anchor="middle" fill="#d4af37" font-size="10">Risk</text>
+                    <circle cx="90" cy="150" r="40" fill="#333" stroke="#98FF98"/>
+                    <text x="90" y="155" text-anchor="middle" fill="#98FF98" font-size="10">Trace</text>
+                    <circle cx="210" cy="150" r="40" fill="#333" stroke="#87CEEB"/>
+                    <text x="210" y="155" text-anchor="middle" fill="#87CEEB" font-size="10">Human</text>
+                </svg>
+            </div>
+
+            <div class="card-grid" style="margin-bottom: 40px;">
+                <div class="card">
+                    <h4 class="zh-title text-gold">風險管理</h4>
+                    <p class="en-text">Risk Management</p>
+                </div>
+                <div class="card">
+                    <h4 class="zh-title text-gold">可追溯性</h4>
+                    <p class="en-text">Traceability</p>
+                </div>
+                <div class="card">
+                    <h4 class="zh-title text-gold">人類監督</h4>
+                    <p class="en-text">Human Oversight</p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-card-highlight); padding: 24px; border-radius: 8px; border-left: 4px solid var(--gold);">
+                <h3 class="zh-title">國際標準 × 台灣法制：雙軌治理定位</h3>
+                <p class="en-title" style="margin-bottom: 16px;">International Standards × Taiwan AI Basic Act</p>
+                <p class="zh-text">
+                    隨著台灣「人工智慧基本法」已經落地（passed December 2025），AI 系統的「責任歸屬」將從道德問題轉變為法律紅線。
+                    Force × FALO 的 Mode D 是一種工程回應：不踩紅線、責任映射、確保系統在國際供應鏈中的合規生存能力。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. WHY TAIWAN -->
+    <section id="taiwan">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">為什麼這套方法適合台灣？</span>
+                <span class="en-title">Why This Works for Taiwan</span>
+            </div>
+            <p class="zh-text">
+                台灣擁有高密度的中小企業 (SME) 與製造業供應鏈。我們需要的是「導入成本低」、「可被標準化複製」，但又「符合國際供應鏈合規底線」的 AI 落地架構。
+            </p>
+        </div>
+    </section>
+
+    <!-- 8. ABOUT AUTHOR (Enhanced) -->
+    <section id="author">
+        <div class="container">
+            <div class="author-box">
+                <h3 class="zh-title">【關於作者】About the Author</h3>
+                <div style="margin-top: 16px;">
+                    <strong style="font-size: 1.2rem; color: var(--text-gold);">Force Cheng（原力狐）</strong>
+                    <p class="zh-text" style="margin-top: 8px;">AI Governance System Architect</p>
+                    <p class="zh-text text-muted" style="margin-top: 12px; line-height: 1.8;">
+                        作者曾橫跨工程與系統開發角色，並具備企業財務、內控、稽核與治理的實務經驗。
+                        長期投入企業內訓與不同學校體系的教學現場，清楚理解「能寫程式」與「能在組織中活下來的程式」之間的巨大落差。
+                        FALO 方法論的目的不是展示技術，而是建立一套可交接、可管理、可長期使用的治理架構，讓台灣企業在 AI 浪潮中穩健前行。
+                    </p>
+                    <p class="en-text" style="margin-top: 8px; font-style: italic;">
+                        Experience across engineering, enterprise governance, and education. Focus on making code survivable inside organizations.
+                    </p>
+                    <div style="margin-top: 16px;">
+                        <a href="https://www.linkedin.com/in/force-cheng-taiwan/" target="_blank" style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span>LinkedIn Profile</span>
+                            <span style="font-size: 1.2em;">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. STATUS -->
+    <section id="status" style="border-bottom: none;">
+        <div class="container">
+            <div class="bilingual-block">
+                <span class="zh-title">狀態與下一步</span>
+                <span class="en-title">Status & Next Steps</span>
+            </div>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">
+                    <span class="badge bg-gold">CURRENT</span> 
+                    <strong>v1.01 Concept Platform (Prior Art)</strong> - Published on GitHub
+                </li>
+                <li style="color: var(--text-muted);">
+                    <span class="badge" style="border:1px solid #666;">NEXT</span> 
+                    Canvas Teaching Version (Interactive)
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h4 class="zh-title text-gold" style="font-size: 1rem;">Force Cheng × FALO</h4>
+                    <p class="en-text">Taiwan AI Code Governance Initiative</p>
+                    <br>
+                    <p class="en-text" style="color: var(--text-muted);">
+                        Author: Force Cheng (Force Fox)<br>
+                        Origin: Taiwan (ROC)<br>
+                        Published: January 23, 2026 (v1.01)<br>
+                        Context: AI Code Governance, Vibe Code, ISO/IEC 42001, Taiwan AI Basic Act (passed December 2025)
+                    </p>
+                </div>
+                <div style="max-width: 400px; text-align: right;">
+                    <p class="en-text" style="font-size: 0.8rem; color: var(--text-muted);">
+                        <strong>COPYRIGHT NOTICE</strong><br>
+                        © 2026 Force Cheng × FALO, Taiwan. All rights reserved.<br>
+                        This page defines a governance-oriented approach to AI Code deployment (Mode D).
+                        Published as Prior Art on GitHub to establish methodology precedence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
