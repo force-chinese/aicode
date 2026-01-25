@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- SEO / GEO -->
+    <title>Dual AI Model｜AI 治理與學習架構（FALO）</title>
+    <meta name="description" content="Dual AI Model 是一種雙層 AI 使用與治理架構，透過「探索層」與「收斂層」的分流，實現 AI 工具自由使用但系統紀錄受治理的目標。特別整合台灣主權模型 TAIDE (Taiwan Sovereign LLM)。FALO 方法論：Fast, Audit, Lean, Open。">
+    <meta name="keywords" content="Dual AI, AI Governance, FALO, AI Learning, Knowledge Management, Taiwan AI, Force Cheng, 雙層AI, 企業AI治理, HITL, Human in the loop, DeepSeek, Gemini, ChatGPT, TAIDE, Taiwan Sovereign LLM, Taiwan LLM, Sovereign AI">
+    <meta name="author" content="Force Cheng x FALO">
+    
+    <!-- Open Graph for LinkedIn / Social Media -->
+    <meta property="og:title" content="Dual AI Model｜AI 治理與學習架構（FALO）">
+    <meta property="og:description" content="AI 工具可以自由使用，但系統紀錄必須被治理。整合 TAIDE (Taiwan Sovereign LLM) 的企業級治理架構。">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="FALO Methodology">
+    <meta property="article:author" content="Force Cheng">
+    <meta property="article:published_time" content="2026-01-25">
+    
+    <!-- Google Fonts: Noto Sans TC + Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles & Force Color Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        force: {
+                            gold: '#D4AF37', // Force Gold
+                            light: '#F9FAFB',
+                            dark: '#1F2937',
+                            gray: '#6B7280'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', '"Noto Sans JP"', '"Roboto"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .section-padding {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        body {
+            background-color: #F3F4F6;
+            color: #374151;
+            transition: opacity 0.3s ease;
+        }
+        /* Icon styling */
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #FFF;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .lang-btn {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background-color: #D4AF37;
+            color: white;
+            font-weight: bold;
+        }
+        .lang-btn:hover:not(.active) {
+            background-color: #E5E7EB;
+        }
+
+        /* SVG Text Transition */
+        svg text {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed">
+
+    <!-- Header & Language Switcher -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <!-- Simple Logo Icon -->
+                <svg class="w-8 h-8 text-force-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <span class="font-bold text-xl tracking-wide text-gray-800">FALO <span class="text-force-gold font-light">Methodology</span></span>
+            </div>
+            
+            <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-1">
+                <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('jp')">JP</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Top Banner: Dual Language Description -->
+        <div class="bg-gray-900 text-gray-300 py-4 text-sm">
+            <div class="container mx-auto px-6 text-center space-y-1">
+                <p data-i18n="banner_zh">本架構旨在建立「流程分層」，透過 HITL (Human In The Loop) 機制連結自由探索與系統紀錄，確保 AI 治理與創新並行。</p>
+                <p data-i18n="banner_en" class="text-gray-500 italic font-light">This framework establishes "Process Layering" to connect free exploration with system records via HITL mechanisms, ensuring balanced AI governance and innovation.</p>
+            </div>
+        </div>
+
+        <!-- Hero / Core Concept -->
+        <section class="bg-white section-padding pb-8">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <span class="inline-block py-1 px-3 rounded-full bg-gray-100 text-force-gray text-xs font-semibold mb-6 tracking-wider" data-i18n="hero_tag">ARCHITECTURE & GOVERNANCE</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                    Dual AI Model<br>
+                    <span class="text-2xl md:text-3xl font-light text-gray-500 mt-2 block" data-i18n="hero_subtitle">雙層 AI 使用與治理架構</span>
+                </h1>
+                
+                <div class="bg-gray-50 p-8 rounded-2xl border-l-4 border-force-gold shadow-sm text-left mx-auto max-w-3xl my-10">
+                    <p class="text-lg md:text-xl text-gray-700 font-medium italic" data-i18n="hero_quote">
+                        「AI 工具可以自由使用，但系統紀錄必須被治理。」
+                    </p>
+                    <p class="mt-4 text-gray-600" data-i18n="hero_desc">
+                        本架構區分「通用性 AI」與「原廠 Agent」，並引入 <strong class="text-force-gold">TAIDE (Taiwan Sovereign LLM)</strong> 等可信任模型進行最終收斂。透過明確的流程分層，解決企業在資安合規與創新速度之間的兩難。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined Diagram & Layers Section -->
+        <section class="bg-white pb-16 pt-4">
+            <div class="container mx-auto px-6 max-w-4xl">
+                
+                <!-- Section Title -->
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800" data-i18n="layers_title">Dual AI 的兩個層級</h2>
+                    <p class="text-gray-500 mt-3" data-i18n="layers_subtitle">從發散思維到系統資產的轉化過程</p>
+                </div>
+
+                <!-- 1. The Visual Diagram -->
+                <div class="bg-white p-2 rounded-xl border border-gray-100 shadow-sm overflow-hidden mb-12">
+                    <svg viewBox="0 0 800 650" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F3F4F6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+                            </linearGradient>
+                            <filter id="dropShadow" height="130%">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                                <feOffset dx="2" dy="2" result="offsetblur"/>
+                                <feComponentTransfer>
+                                    <feFuncA type="linear" slope="0.2"/>
+                                </feComponentTransfer>
+                                <feMerge> 
+                                    <feMergeNode/>
+                                    <feMergeNode in="SourceGraphic"/> 
+                                </feMerge>
+                            </filter>
+                             <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#D4AF37" />
+                            </marker>
+                            <marker id="arrowhead-gray" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#9CA3AF" />
+                            </marker>
+                        </defs>
+
+                        <!-- Layer 1 Background: Exploration -->
+                        <rect x="50" y="20" width="700" height="250" rx="15" fill="url(#grad1)" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="5,5" />
+                        
+                        <!-- Layer 1 Title -->
+                        <text id="svg_l1_title" x="70" y="55" font-family="sans-serif" font-size="20" font-weight="bold" fill="#6B7280">第一層：探索層 (Exploration)</text>
+                        <text id="svg_l1_desc" x="70" y="80" font-family="sans-serif" font-size="14" fill="#9CA3AF">特點：多來源、低成本、包含地緣模型</text>
+
+                        <!-- Category 1: General AI (Left Side) -->
+                        <g transform="translate(70, 110)">
+                            <text id="svg_cat1" x="0" y="-10" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4B5563">1. 通用性 AI (General)</text>
+                            
+                            <!-- ChatGPT -->
+                            <g transform="translate(40, 40)">
+                                <circle cx="0" cy="0" r="28" fill="white" stroke="#10A37F" stroke-width="2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#10A37F">ChatGPT</text>
+                            </g>
+                             <!-- Perplexity -->
+                             <g transform="translate(110, 40)">
+                                <circle cx="0" cy="0" r="28" fill="white" stroke="#000000" stroke-width="2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="9" font-weight="bold" fill="#000000">Perplexity</text>
+                            </g>
+                             <!-- Grok -->
+                             <g transform="translate(40, 105)">
+                                <circle cx="0" cy="0" r="28" fill="white" stroke="#333333" stroke-width="2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#333333">Grok</text>
+                            </g>
+                             <!-- DeepSeek (China) -->
+                             <g transform="translate(110, 105)">
+                                <circle cx="0" cy="0" r="28" fill="#FFF1F2" stroke="#E11D48" stroke-width="2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#E11D48">DeepSeek</text>
+                                <text id="svg_ds_note" x="0" y="40" text-anchor="middle" font-size="9" fill="#9CA3AF">(China)</text>
+                            </g>
+                        </g>
+
+                        <!-- Divider Line -->
+                        <line x1="320" y1="100" x2="320" y2="230" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="2,2" />
+
+                        <!-- Category 2: Platform Agents (Right Side) -->
+                        <g transform="translate(400, 110)">
+                            <text id="svg_cat2" x="0" y="-10" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4B5563">2. 原廠 Agent (Agents)</text>
+                            
+                            <!-- MyGPTs -->
+                            <g transform="translate(50, 40)">
+                                <circle cx="0" cy="0" r="28" fill="white" stroke="#10A37F" stroke-width="2" stroke-dasharray="2,2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#10A37F">MyGPTs</text>
+                            </g>
+                            <!-- Gemini Gem -->
+                            <g transform="translate(130, 40)">
+                                <circle cx="0" cy="0" r="28" fill="white" stroke="#1D4ED8" stroke-width="2" stroke-dasharray="2,2"/>
+                                <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#1D4ED8">Gems</text>
+                            </g>
+                            <!-- Doubao (China) -->
+                            <g transform="translate(90, 105)">
+                                <circle cx="0" cy="0" r="28" fill="#FFF1F2" stroke="#E11D48" stroke-width="2" stroke-dasharray="2,2"/>
+                                <text id="svg_doubao" x="0" y="4" text-anchor="middle" font-size="10" font-weight="bold" fill="#E11D48">豆包</text>
+                                <text id="svg_db_note" x="0" y="40" text-anchor="middle" font-size="9" fill="#9CA3AF">(China)</text>
+                            </g>
+                        </g>
+
+                        <!-- Transition Arrow 1: HITL -->
+                        <path d="M 400 280 L 400 340" stroke="#D4AF37" stroke-width="4" marker-end="url(#arrowhead)" />
+                        <!-- HITL Box -->
+                        <rect x="280" y="295" width="240" height="34" rx="17" fill="#D4AF37" />
+                        <text id="svg_hitl" x="400" y="318" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="white">人機協作 (HITL)</text>
+                        <circle cx="495" cy="312" r="8" fill="white" opacity="0.3"/>
+                        <text x="495" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="#D4AF37">AI</text>
+
+                        <!-- Layer 2 Background: Consolidation -->
+                        <rect x="150" y="350" width="500" height="150" rx="10" fill="white" stroke="#D4AF37" stroke-width="3" filter="url(#dropShadow)" />
+                        
+                        <!-- Layer 2 Title -->
+                        <text id="svg_l2_title" x="400" y="385" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">第二層：收斂層 (Consolidation)</text>
+                        
+                        <!-- Core System Box -->
+                        <rect x="240" y="400" width="320" height="60" rx="5" fill="#FFFBEB" stroke="#D4AF37" stroke-width="1" />
+                        <text id="svg_api_text" x="400" y="425" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#B45309">
+                            API 摘要 / 結構化 / 系統紀錄
+                        </text>
+                        <text id="svg_dual_ai" x="400" y="445" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#D97706">
+                            *Global Trusted AI + Taiwan TAIDE
+                        </text>
+                        
+                        <!-- Governance Badges -->
+                        <g transform="translate(260, 470)">
+                            <rect x="0" y="0" width="120" height="20" rx="4" fill="#E5E7EB" />
+                            <text id="svg_trusted" x="60" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#4B5563">Trusted Global AI</text>
+                        </g>
+                         <g transform="translate(390, 470)">
+                            <rect x="0" y="0" width="100" height="20" rx="4" fill="#1F2937" />
+                            <text x="50" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="#D4AF37">ISO 42001</text>
+                        </g>
+                         <g transform="translate(500, 470)">
+                            <rect x="0" y="0" width="140" height="20" rx="4" fill="#4338ca" />
+                            <text id="svg_taide" x="70" y="14" text-anchor="middle" font-size="11" font-weight="bold" fill="white">TAIDE (Taiwan)</text>
+                        </g>
+
+                        <!-- Post-Layer 2: Final Human Audit (Diamond) -->
+                        <path d="M 400 500 L 400 540" stroke="#D4AF37" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowhead)" />
+                        
+                        <g transform="translate(325, 550)">
+                            <rect x="0" y="0" width="150" height="40" rx="20" fill="white" stroke="#D4AF37" stroke-width="2" />
+                            <text id="svg_audit" x="75" y="25" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#B45309">人工複核 (Audit)</text>
+                        </g>
+                        
+                        <!-- The Feedback Loop (Double Confirm) -->
+                        <path d="M 475 570 C 600 570, 620 480, 620 400 C 620 340, 560 400, 560 400" 
+                              fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead-gray)" />
+                        <text id="svg_loop" x="630" y="480" font-family="sans-serif" font-size="11" fill="#6B7280" font-weight="bold">Double Confirm</text>
+                        
+                        <text id="svg_final" x="400" y="610" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#9CA3AF">確認無誤後，正式發布/應用</text>
+
+                    </svg>
+                    <p class="text-center text-xs text-gray-400 mt-2" data-i18n="fig_caption">圖 1.4 Dual AI 完整流程圖（含 Agent 分類與 TAIDE 主權模型）</p>
+                </div>
+
+                <!-- 2. Detailed Cards (Consolidated into same section) -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Layer 1: Exploration -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-gray-300"></div>
+                        <div class="flex items-center mb-6">
+                            <div class="icon-box bg-gray-100 text-gray-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold ml-4 text-gray-700">
+                                <span data-i18n="l1_title">探索層</span>
+                                <span class="block text-sm font-normal text-gray-400">Exploration Layer</span>
+                            </h3>
+                        </div>
+                        
+                        <div class="space-y-6 mb-8">
+                            <!-- Category 1 -->
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-2" data-i18n="l1_c1_title">1. 通用性 AI (General)</h4>
+                                <p class="text-sm text-gray-600 mb-2" data-i18n="l1_c1_desc">直接與大語言模型對話，進行廣泛搜尋與問答。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded border border-gray-200">ChatGPT</span>
+                                    <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded border border-gray-200">Perplexity</span>
+                                    <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded border border-gray-200">Grok</span>
+                                    <span class="px-2 py-1 bg-red-50 text-red-700 text-xs rounded border border-red-100">DeepSeek (China)</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Category 2 -->
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-2" data-i18n="l1_c2_title">2. 原廠 Agent (Agents)</h4>
+                                <p class="text-sm text-gray-600 mb-2" data-i18n="l1_c2_desc">使用特定指令集或知識庫封裝的 AI 助理。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-green-50 text-green-700 text-xs rounded border border-green-100">MyGPTs</span>
+                                    <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded border border-blue-100">Gemini Gems</span>
+                                    <span class="px-2 py-1 bg-red-50 text-red-700 text-xs rounded border border-red-100">豆包 (China)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg text-sm text-gray-500 border border-gray-100">
+                            <strong data-i18n="note_label">重點說明：</strong><br>
+                            <span data-i18n="l1_note">無論是直接對話或使用 Agent，此層皆視為「個人探索」行為，容許幻覺與地緣模型 (China) 使用，但不做為系統紀錄。</span>
+                        </div>
+                    </div>
+
+                    <!-- Layer 2: Consolidation -->
+                    <div class="bg-white rounded-2xl p-8 shadow-md border border-force-gold/30 hover:shadow-lg transition-shadow relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-force-gold"></div>
+                        <div class="flex items-center mb-6">
+                            <div class="icon-box bg-yellow-50 text-force-gold">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold ml-4 text-gray-800">
+                                <span data-i18n="l2_title">收斂層</span>
+                                <span class="block text-sm font-normal text-force-gold">Consolidation Layer</span>
+                            </h3>
+                        </div>
+
+                        <ul class="space-y-4 mb-4">
+                            <li class="flex items-start">
+                                <span class="text-force-gold mr-2">▪</span>
+                                <span class="text-gray-700"><strong data-i18n="l2_purpose_label">目的：</strong> <span data-i18n="l2_purpose_text">結構化輸出、標準化格式、寫入系統紀錄。</span></span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-force-gold mr-2">▪</span>
+                                <span class="text-gray-700">
+                                    <strong data-i18n="l2_model_label">核心模型：</strong>
+                                    <span class="block mt-1 space-y-1">
+                                        <span class="block text-sm">🌐 <strong data-i18n="trusted_ai">可信任國際版 AI</strong> (Global Trusted AI)</span>
+                                        <span class="block text-sm">🇹🇼 <strong class="text-force-gold">Taiwan 主權 LLM (TAIDE)</strong></span>
+                                    </span>
+                                </span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-force-gold mr-2">▪</span>
+                                <span class="text-gray-700"><strong data-i18n="l2_mech_label">機制：</strong> <span data-i18n="l2_mech_text">API 自動化處理，可選用上述雙模型進行勾稽 (Cross-Check)。</span></span>
+                            </li>
+                        </ul>
+                        
+                        <!-- Added TAIDE Section -->
+                        <div class="bg-indigo-50 p-4 rounded-lg text-sm text-gray-700 border border-indigo-100 mb-4">
+                            <h4 class="font-bold text-indigo-900 mb-1 flex items-center">
+                                <svg class="w-4 h-4 mr-1 text-indigo-700" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"/></svg>
+                                Trustworthy AI Dialogue Engine (TAIDE)
+                            </h4>
+                            <p data-i18n="taide_info">
+                                台灣國科會主導開發的繁體中文主權模型，具備在地文化理解與資安可控性，是 Dual AI 架構中「數位主權」與「在地化收斂」的核心基石。
+                            </p>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg text-sm text-gray-700 border border-yellow-100">
+                            <strong data-i18n="note_label">重點說明：</strong><br>
+                            <span data-i18n="l2_note">收斂層強調「信任」與「主權」。只有經過受信任模型 API 處理並通過 Audit 的內容，才會成為正式資產。</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Why This Design -->
+        <section class="bg-white section-padding">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-i18n="why_title">為什麼要這樣設計？</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Reason 1 -->
+                    <div class="p-6 rounded-xl bg-gray-50 border border-gray-100">
+                        <h4 class="font-bold text-xl mb-3 text-gray-800" data-i18n="why_r1_title">符合 HITL 協作</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed" data-i18n="why_r1_text">
+                            單靠人腦篩選效率低，單靠 AI 準確度有風險。HITL (Human In The Loop) 結合 AI 的輔助篩選與人類的關鍵決策，達到最佳平衡。
+                        </p>
+                    </div>
+                    
+                    <!-- Reason 2 -->
+                    <div class="p-6 rounded-xl bg-gray-50 border border-gray-100">
+                        <h4 class="font-bold text-xl mb-3 text-gray-800" data-i18n="why_r2_title">成本與風險控制</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed" data-i18n="why_r2_text">
+                            探索層開放多元與地緣模型（如 DeepSeek）激發創意；收斂層則嚴守「Global Trusted AI」與「TAIDE」主權模型，確保資安無虞。
+                        </p>
+                    </div>
+
+                    <!-- Reason 3 -->
+                    <div class="p-6 rounded-xl bg-gray-50 border border-gray-100">
+                        <h4 class="font-bold text-xl mb-3 text-gray-800" data-i18n="why_r3_title">治理閉環 (Loop)</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed" data-i18n="why_r3_text">
+                            不僅是單向流程，更包含「Double Confirm Loop」。若最終 Audit 發現問題，有明確機制回流修正，確保 System of Record 的純淨度。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="bg-white section-padding">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8" data-i18n="usecase_title">適用場景</h2>
+                <div class="flex flex-wrap justify-center gap-4 text-sm md:text-base">
+                    <span class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-medium" data-i18n="uc_1">內訓與學習系統</span>
+                    <span class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-medium" data-i18n="uc_2">企業知識管理 (KM)</span>
+                    <span class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-medium" data-i18n="uc_3">AI 輔助研究與筆記</span>
+                    <span class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-medium" data-i18n="uc_4">需資料來源治理的組織</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                 <span class="inline-block py-1 px-2 rounded bg-gray-200 text-gray-600 text-xs font-mono">v1.03 | 2026/1/25</span>
+            </div>
+            <p class="text-gray-500 text-sm mb-2 font-medium">© 2026 Force Cheng x FALO. All Rights Reserved.</p>
+            <p class="text-gray-400 text-xs max-w-2xl mx-auto leading-normal">
+                This document is part of the FALO (Formosa AI Life Outlook) methodology<br>
+                and is intended for educational, architectural, and governance reference only.
+            </p>
+            <div class="mt-6">
+                <a href="https://www.linkedin.com/in/force-cheng-taiwan/" target="_blank" class="inline-flex items-center text-gray-500 hover:text-[#0077b5] transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <span class="text-sm font-medium">Connect on LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Translations & Script -->
+    <script>
+        const i18n = {
+            zh: {
+                hero_tag: "ARCHITECTURE & GOVERNANCE",
+                hero_subtitle: "雙層 AI 使用與治理架構",
+                hero_quote: "「AI 工具可以自由使用，但系統紀錄必須被治理。」",
+                hero_desc: "本架構區分「通用性 AI」與「原廠 Agent」，並引入 TAIDE (Taiwan Sovereign LLM) 等可信任模型進行最終收斂。透過明確的流程分層，解決企業在資安合規與創新速度之間的兩難。",
+                
+                // SVG Labels
+                svg_l1_title: "第一層：探索層 (Exploration)",
+                svg_l1_desc: "特點：多來源、低成本、包含地緣模型",
+                svg_cat1: "1. 通用性 AI (General)",
+                svg_cat2: "2. 原廠 Agent (Agents)",
+                svg_doubao: "豆包",
+                svg_ds_note: "(China)",
+                svg_db_note: "(China)",
+                svg_hitl: "人機協作 (HITL)",
+                svg_l2_title: "第二層：收斂層 (Consolidation)",
+                svg_api_text: "API 摘要 / 結構化 / 系統紀錄",
+                svg_dual_ai: "*Global Trusted AI + Taiwan TAIDE",
+                svg_trusted: "Trusted Global AI",
+                svg_taide: "TAIDE (Taiwan)",
+                svg_audit: "人工複核 (Audit)",
+                svg_loop: "Double Confirm",
+                svg_final: "確認無誤後，正式發布/應用",
+
+                fig_caption: "圖 1.4 Dual AI 完整流程圖（含 Agent 分類與 TAIDE 主權模型）",
+
+                layers_title: "Dual AI 的兩個層級",
+                layers_subtitle: "從發散思維到系統資產的轉化過程",
+                
+                l1_title: "探索層",
+                l1_c1_title: "1. 通用性 AI (General)",
+                l1_c1_desc: "直接與大語言模型對話，進行廣泛搜尋與問答。",
+                l1_c2_title: "2. 原廠 Agent (Agents)",
+                l1_c2_desc: "使用特定指令集或知識庫封裝的 AI 助理。",
+                note_label: "重點說明：",
+                l1_note: "無論是直接對話或使用 Agent，此層皆視為「個人探索」行為，容許幻覺與地緣模型 (China) 使用，但不做為系統紀錄。",
+                
+                l2_title: "收斂層",
+                l2_purpose_label: "目的：",
+                l2_purpose_text: "結構化輸出、標準化格式、寫入系統紀錄。",
+                l2_model_label: "核心模型：",
+                trusted_ai: "Global Trusted AI",
+                taide_desc: "Taiwan 主權 LLM",
+                l2_mech_label: "機制：",
+                l2_mech_text: "API 自動化處理，可選用上述雙模型進行勾稽 (Cross-Check)。",
+                l2_note: "收斂層強調「信任」與「主權」。只有經過受信任模型 API 處理並通過 Audit 的內容，才會成為正式資產。",
+                taide_info: "台灣國科會主導開發的繁體中文主權模型，具備在地文化理解與資安可控性，是 Dual AI 架構中「數位主權」與「在地化收斂」的核心基石。",
+
+                why_title: "為什麼要這樣設計？",
+                why_r1_title: "符合 HITL 協作",
+                why_r1_text: "單靠人腦篩選效率低，單靠 AI 準確度有風險。HITL (Human In The Loop) 結合 AI 的輔助篩選與人類的關鍵決策，達到最佳平衡。",
+                why_r2_title: "成本與風險控制",
+                why_r2_text: "探索層開放多元與地緣模型（如 DeepSeek）激發創意；收斂層則嚴守「Global Trusted AI」與「TAIDE」主權模型，確保資安無虞。",
+                why_r3_title: "治理閉環 (Loop)",
+                why_r3_text: "不僅是單向流程，更包含「Double Confirm Loop」。若最終 Audit 發現問題，有明確機制回流修正，確保 System of Record 的純淨度。",
+
+                usecase_title: "適用場景",
+                uc_1: "內訓與學習系統",
+                uc_2: "企業知識管理 (KM)",
+                uc_3: "AI 輔助研究與筆記",
+                uc_4: "需資料來源治理的組織"
+            },
+            en: {
+                hero_tag: "ARCHITECTURE & GOVERNANCE",
+                hero_subtitle: "Dual-Layer AI Usage & Governance Framework",
+                hero_quote: "\"AI tools can be used freely, but system records must be governed.\"",
+                hero_desc: "This framework distinguishes between 'General AI' and 'Platform Agents', and introduces trusted models like TAIDE (Taiwan Sovereign LLM) for final consolidation. It solves the dilemma between security compliance and innovation speed through clear process layering.",
+                
+                // SVG Labels
+                svg_l1_title: "Layer 1: Exploration Layer",
+                svg_l1_desc: "Features: Multi-source, Low-cost, Includes Geo-models",
+                svg_cat1: "1. General AI",
+                svg_cat2: "2. Platform Agents",
+                svg_doubao: "Doubao",
+                svg_ds_note: "(China)",
+                svg_db_note: "(China)",
+                svg_hitl: "Human-In-The-Loop (HITL)",
+                svg_l2_title: "Layer 2: Consolidation Layer",
+                svg_api_text: "API Summary / Structured / System Record",
+                svg_dual_ai: "*Global Trusted AI + Taiwan TAIDE",
+                svg_trusted: "Trusted Global AI",
+                svg_taide: "TAIDE (Taiwan)",
+                svg_audit: "Human Audit",
+                svg_loop: "Double Confirm",
+                svg_final: "Release / Apply after confirmation",
+
+                fig_caption: "Fig 1.4 Dual AI Flowchart (Includes Agent Classification & TAIDE Sovereign Model)",
+
+                layers_title: "The Two Layers of Dual AI",
+                layers_subtitle: "The transformation process from divergent thinking to system assets",
+                
+                l1_title: "Exploration",
+                l1_c1_title: "1. General AI",
+                l1_c1_desc: "Direct dialogue with LLMs for broad search and Q&A.",
+                l1_c2_title: "2. Platform Agents",
+                l1_c2_desc: "AI assistants encapsulated with specific instructions or knowledge bases.",
+                note_label: "Key Note:",
+                l1_note: "Whether using direct chat or Agents, this layer is considered 'personal exploration', allowing hallucinations and geo-models (China), but NOT for system records.",
+                
+                l2_title: "Consolidation",
+                l2_purpose_label: "Purpose:",
+                l2_purpose_text: "Structured output, standardized format, writing to system records.",
+                l2_model_label: "Core Models:",
+                trusted_ai: "Global Trusted AI",
+                taide_desc: "Taiwan Sovereign LLM",
+                l2_mech_label: "Mechanism:",
+                l2_mech_text: "API automation, optional dual-model cross-check.",
+                l2_note: "Consolidation emphasizes 'Trust' and 'Sovereignty'. Only content processed by trusted APIs and audited becomes official assets.",
+                taide_info: "Developed by Taiwan's NSTC, this Traditional Chinese sovereign model possesses local cultural understanding and security controllability, serving as the cornerstone of 'Digital Sovereignty' in the Dual AI architecture.",
+
+                why_title: "Why This Design?",
+                why_r1_title: "Aligned with HITL",
+                why_r1_text: "Human filtering alone is slow; AI alone is risky. HITL combines AI screening with human decision-making for optimal balance.",
+                why_r2_title: "Cost & Risk Control",
+                why_r2_text: "Exploration layer allows diverse/geo-models (e.g., DeepSeek) for creativity; Consolidation layer strictly uses 'Global Trusted AI' & 'TAIDE'.",
+                why_r3_title: "Governance Loop",
+                why_r3_text: "Includes a 'Double Confirm Loop'. If Audit finds issues, content flows back for correction, ensuring System of Record purity.",
+
+                usecase_title: "Use Cases",
+                uc_1: "Internal Training Systems",
+                uc_2: "Enterprise KM",
+                uc_3: "AI-Assisted Research",
+                uc_4: "Organizations needing Source Governance"
+            },
+            jp: {
+                hero_tag: "アーキテクチャとガバナンス",
+                hero_subtitle: "二層型AI利用・ガバナンスフレームワーク",
+                hero_quote: "「AIツールは自由に使用できるが、システム記録は統制されなければならない。」",
+                hero_desc: "本フレームワークは「汎用AI」と「プラットフォームエージェント」を区別し、最終的な集約にはTAIDE（台湾主権LLM）のような信頼できるモデルを導入します。明確なプロセス階層化により、セキュリティコンプライアンスとイノベーション速度のジレンマを解決します。",
+                
+                // SVG Labels
+                svg_l1_title: "第一層：探索層 (Exploration)",
+                svg_l1_desc: "特徴：マルチソース、低コスト、地域特化型モデルを含む",
+                svg_cat1: "1. 汎用 AI (General)",
+                svg_cat2: "2. エージェント (Agents)",
+                svg_doubao: "Doubao",
+                svg_ds_note: "(China)",
+                svg_db_note: "(China)",
+                svg_hitl: "人間参加型 (HITL)",
+                svg_l2_title: "第二層：集約層 (Consolidation)",
+                svg_api_text: "API要約 / 構造化 / システム記録",
+                svg_dual_ai: "*Global Trusted AI + Taiwan TAIDE",
+                svg_trusted: "信頼できる国際AI",
+                svg_taide: "TAIDE (台湾)",
+                svg_audit: "人間による監査 (Audit)",
+                svg_loop: "二重確認ループ",
+                svg_final: "確認後、正式にリリース/適用",
+
+                fig_caption: "図 1.4 Dual AI フローチャート（エージェント分類とTAIDE主権モデルを含む）",
+
+                layers_title: "Dual AIの二つの階層",
+                layers_subtitle: "発散思考からシステム資産への変換プロセス",
+                
+                l1_title: "探索層",
+                l1_c1_title: "1. 汎用 AI (General)",
+                l1_c1_desc: "大規模言語モデルとの直接対話による広範な検索とQ&A。",
+                l1_c2_title: "2. エージェント (Agents)",
+                l1_c2_desc: "特定の指示セットまたは知識ベースでカプセル化されたAIアシスタント。",
+                note_label: "重要事項：",
+                l1_note: "直接対話かエージェント利用かに関わらず、この層は「個人の試行錯誤」と見なされ、ハルシネーションや地域特化型モデル（中国製など）の使用は許容されますが、システム記録にはなりません。",
+                
+                l2_title: "集約層",
+                l2_purpose_label: "目的：",
+                l2_purpose_text: "構造化出力、標準化フォーマット、システム記録への書き込み。",
+                l2_model_label: "コアモデル：",
+                trusted_ai: "信頼できる国際AI",
+                taide_desc: "TAIDE (台湾主権LLM)",
+                l2_mech_label: "メカニズム：",
+                l2_mech_text: "API自動処理、オプションでデュアルモデルによるクロスチェックを実施。",
+                l2_note: "集約層は「信頼」と「主権」を強調します。信頼できるモデルAPIによって処理され、監査を通過したコンテンツのみが正式な資産となります。",
+                taide_info: "台湾国家科学技術委員会（NSTC）主導で開発された繁体字中国語主権モデル。地域文化の理解とセキュリティ管理性を備え、Dual AIアーキテクチャにおける「デジタル主権」と「ローカライズ」の中核を成します。",
+
+                why_title: "なぜこの設計なのか？",
+                why_r1_title: "HITL（Human-In-The-Loop）協調",
+                why_r1_text: "人間のフィルタリングだけでは遅く、AIだけではリスクがあります。HITLはAIのスクリーニングと人間の意思決定を組み合わせ、最適なバランスを実現します。",
+                why_r2_title: "コストとリスクの制御",
+                why_r2_text: "探索層では創造性のために多様なモデル（DeepSeekなど）を開放し、集約層では「Global Trusted AI」と「TAIDE」を厳守してセキュリティを確保します。",
+                why_r3_title: "ガバナンスループ",
+                why_r3_text: "単方向のフローだけでなく、「二重確認ループ」を含みます。監査で問題が見つかった場合、修正のためにフローが戻り、システム記録の整合性を保証します。",
+
+                usecase_title: "適用シナリオ",
+                uc_1: "社内研修・学習システム",
+                uc_2: "企業ナレッジ管理 (KM)",
+                uc_3: "AI支援による研究・メモ",
+                uc_4: "情報源のガバナンスが必要な組織"
+            }
+        };
+
+        function setLang(lang) {
+            // Update Text Content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) {
+                    el.innerText = i18n[lang][key];
+                    // Special HTML injection for complex keys
+                    if (['l2_model_label', 'taide_info', 'l2_note'].includes(key)) {
+                        if (key === 'l2_model_label') {
+                            if (lang === 'zh') {
+                                el.innerHTML = `核心模型：<span class="block mt-1 space-y-1"><span class="block text-sm">🌐 <strong data-i18n="trusted_ai">可信任國際版 AI</strong> (Global Trusted AI)</span><span class="block text-sm">🇹🇼 <strong class="text-force-gold">Taiwan 主權 LLM (TAIDE)</strong></span></span>`;
+                            } else if (lang === 'en') {
+                                el.innerHTML = `Core Models:<span class="block mt-1 space-y-1"><span class="block text-sm">🌐 <strong>Global Trusted AI</strong></span><span class="block text-sm">🇹🇼 <strong class="text-force-gold">Taiwan Sovereign LLM (TAIDE)</strong></span></span>`;
+                            } else if (lang === 'jp') {
+                                el.innerHTML = `コアモデル：<span class="block mt-1 space-y-1"><span class="block text-sm">🌐 <strong>信頼できる国際AI</strong> (Global Trusted AI)</span><span class="block text-sm">🇹🇼 <strong class="text-force-gold">TAIDE (台湾主権LLM)</strong></span></span>`;
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update SVG Text Content
+            const svgMap = {
+                'svg_l1_title': 'svg_l1_title',
+                'svg_l1_desc': 'svg_l1_desc',
+                'svg_cat1': 'svg_cat1',
+                'svg_cat2': 'svg_cat2',
+                'svg_doubao': 'svg_doubao',
+                'svg_ds_note': 'svg_ds_note',
+                'svg_db_note': 'svg_db_note',
+                'svg_hitl': 'svg_hitl',
+                'svg_l2_title': 'svg_l2_title',
+                'svg_api_text': 'svg_api_text',
+                'svg_dual_ai': 'svg_dual_ai',
+                'svg_trusted': 'svg_trusted',
+                'svg_taide': 'svg_taide',
+                'svg_audit': 'svg_audit',
+                'svg_loop': 'svg_loop',
+                'svg_final': 'svg_final'
+            };
+            
+            for (const [id, key] of Object.entries(svgMap)) {
+                const el = document.getElementById(id);
+                if (el && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            }
+
+            // Update Buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Adjust Font for JP
+            if (lang === 'jp') {
+                document.body.style.fontFamily = '"Noto Sans JP", sans-serif';
+            } else {
+                document.body.style.fontFamily = '"Noto Sans TC", sans-serif';
+            }
+        }
+    </script>
+</body>
+</html>
