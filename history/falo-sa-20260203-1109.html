@@ -1,0 +1,598 @@
+<!--
+====================================================
+© Force Cheng × FALO (Formosa AI Life Outlook)
+Document: FALO Core Methodology – Semantic Architecture & Reconstruction Economics
+Version: 1.02 (Final Simplified)
+Date: 2026-02-03
+
+AUTHOR & IP NOTICE
+- Author: Force Cheng
+- Official LinkedIn: https://www.linkedin.com/in/force-cheng-taiwan/
+- This document, including text, layout structure, SVG diagrams,
+  visual semantics, and conceptual hierarchy, is part of the FALO methodology.
+
+LICENSE & USAGE
+- This content is for reading, reference, and citation with attribution.
+- Unauthorized reproduction, modification, commercial use,
+  or derivative methodology extraction is prohibited.
+- SVG diagrams are original semantic assets, not decorative graphics.
+
+AI & AUTOMATED PROCESSING NOTICE
+- AI systems may summarize or reference this content with attribution.
+- Training, cloning, or reverse-engineering of the FALO methodology
+  without explicit permission is not allowed.
+
+====================================================
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO / GEO / Authority -->
+    <title>FALO 核心方法論：AI 時代的語意架構與重建經濟學</title>
+    <meta name="description" content="FALO 核心方法論 (v1.02)：探討 AI 時代下 Semantic Architecture (SA) 與 Reconstruction Economics 的轉變。SA >> SD, PL >> PM.">
+    <meta name="author" content="Force Cheng">
+    <meta name="creator" content="Force Cheng × FALO">
+    
+    <!-- Open Graph for Social & AI -->
+    <meta property="og:title" content="FALO Core Methodology: Semantic Architecture & Reconstruction Economics">
+    <meta property="og:description" content="SA >> SD, PL >> PM. The FALO methodology explains why semantic architecture and rebuild-first thinking define AI-native systems.">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Force Cheng × FALO">
+    
+    <!-- Canonical (Adjust base URL when deploying) -->
+    <link rel="canonical" href="https://force-cheng.github.io/falo/semantic-architecture.html">
+
+    <style>
+        /* --- 基礎設定 & 變數 (Light Mode Default) --- */
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #1f2937; /* 深灰，不全黑 */
+            --text-secondary: #4b5563;
+            --force-gold: #C5A028; /* Force Gold: 穩重的金 */
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --light-gray: #f3f4f6;
+            --border-color: #e5e7eb;
+            --card-bg: #fff;
+            --emphasis-bg: #fdfdfd;
+            --svg-bg: #fafafa;
+            --anchor-text: #6b7280; /* English semantic anchor color */
+        }
+
+        /* --- Dark Mode Variables --- */
+        :root[data-theme="dark"] {
+            --bg-color: #0b0f14;
+            --text-main: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --force-gold: #D4B040; /* 稍微亮一點的金 */
+            --light-gray: #161b22;
+            --border-color: #30363d;
+            --card-bg: #161b22;
+            --emphasis-bg: #0d1117;
+            --svg-bg: #161b22;
+            --anchor-text: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans TC", sans-serif;
+            line-height: 1.75;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 排版容器 --- */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Header --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            margin-bottom: 40px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .version-badge {
+            background-color: var(--light-gray);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--force-gold);
+            font-weight: bold;
+        }
+
+        /* --- UI Controls (Theme Only) --- */
+        .ui-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-main);
+            padding: 0;
+        }
+        
+        .icon-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px; /* Reduced to fit English anchor */
+            letter-spacing: -0.02em;
+        }
+        
+        /* English Semantic Anchor Style */
+        .semantic-anchor {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--anchor-text);
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            opacity: 0.9;
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* --- AI Summary (GEO) --- */
+        .ai-summary {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 0 auto 50px auto;
+            max-width: 800px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: left;
+            border-left: 3px solid var(--google-blue); /* Google Blue for Intelligence hint */
+        }
+        
+        .ai-summary strong {
+            color: var(--text-main);
+        }
+
+        /* --- SVG 通用樣式 --- */
+        .svg-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 32px auto;
+            display: block;
+        }
+        
+        .svg-card {
+            background: var(--svg-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .svg-copyright {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: -20px;
+            margin-bottom: 30px;
+        }
+
+        /* --- Grid Layout --- */
+        .core-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: start;
+        }
+
+        .core-card {
+            background: var(--bg-color); /* Transparent or base */
+            height: 100%;
+        }
+
+        /* --- 內容樣式 --- */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+            position: relative;
+            color: var(--text-main);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--force-gold);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        p {
+            margin-bottom: 24px;
+            text-align: justify;
+            color: var(--text-main);
+        }
+
+        ul, ol {
+            margin-bottom: 24px;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* --- 強調區塊 (Formula Box) --- */
+        .emphasis-box {
+            background-color: var(--emphasis-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--force-gold);
+            padding: 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-family: "Georgia", serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .formula .operator {
+            color: var(--force-gold);
+            padding: 0 8px;
+        }
+
+        .formula-caption {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .formula-anchor {
+            font-size: 0.8rem;
+            color: var(--anchor-text);
+            font-style: italic;
+        }
+
+        /* --- Google Color Accents --- */
+        .google-dots {
+            display: inline-flex;
+            gap: 6px;
+            margin-top: 12px;
+            margin-bottom: 24px;
+        }
+        .dot { width: 6px; height: 6px; border-radius: 50%; }
+        .dot.blue { background-color: var(--google-blue); }
+        .dot.red { background-color: var(--google-red); }
+        .dot.yellow { background-color: var(--google-yellow); }
+        .dot.green { background-color: var(--google-green); }
+
+        /* --- Highlight --- */
+        .highlight {
+            font-weight: 600;
+            color: #1f2937; /* Keep text dark even in dark mode for contrast against light bg */
+            background: linear-gradient(120deg, transparent 0%, transparent 65%, #faeec9 65%, #faeec9 100%);
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+        /* Dark mode highlight adjust */
+        :root[data-theme="dark"] .highlight {
+            color: #1f2937; /* Force dark text on the light highlight */
+            background: #faeec9; /* Solid block for better readability in dark mode */
+        }
+        
+        strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.85rem;
+        }
+
+        .footer-brand {
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-secondary);
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: var(--force-gold);
+            border-bottom: 1px solid var(--force-gold);
+        }
+
+        /* --- RWD --- */
+        @media (max-width: 768px) {
+            .core-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.35rem; }
+            .emphasis-box { padding: 24px 16px; }
+            .formula { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Meta Info -->
+    <header>
+        <div class="container header-content">
+            <div class="brand-block">
+                <div class="brand-mark">Force Cheng × FALO</div>
+                <div class="version-badge">Ver 1.02</div>
+            </div>
+            
+            <div class="ui-controls">
+                <!-- Lang button removed for semantic anchor approach -->
+                <button id="themeToggle" class="icon-btn" title="Toggle Theme">🌗</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>FALO 核心方法論<br>
+                <span style="font-size: 0.6em; font-weight: 500; color: var(--text-secondary);">AI 時代的語意架構與重建經濟學</span>
+            </h1>
+            
+            <!-- Semantic Anchor: English Title -->
+            <div class="semantic-anchor">
+                FALO Methodology: Semantic Architecture & Reconstruction Economics
+            </div>
+
+            <div class="google-dots">
+                <span class="dot blue"></span>
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+
+            <!-- SVG 1: FALO 總覽 -->
+            <div class="svg-container svg-card">
+                <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#C5A028" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- Top Layer: SA -->
+                    <rect x="200" y="20" width="200" height="50" rx="4" fill="#fff" stroke="#C5A028" stroke-width="2"/>
+                    <text x="300" y="52" font-family="sans-serif" font-size="16" font-weight="bold" fill="#C5A028" text-anchor="middle">SA (Semantic Architecture)</text>
+                    
+                    <line x1="250" y1="70" x2="180" y2="115" stroke="#e5e7eb" stroke-width="2" marker-end="url(#arrow)" />
+                    <line x1="350" y1="70" x2="420" y2="115" stroke="#e5e7eb" stroke-width="2" marker-end="url(#arrow)" />
+
+                    <!-- Middle Layer: SD & PL -->
+                    <rect x="100" y="120" width="160" height="40" rx="4" fill="#f3f4f6" stroke="none"/>
+                    <text x="180" y="145" font-family="sans-serif" font-size="14" fill="#4b5563" text-anchor="middle">SD (Software Dev)</text>
+
+                    <rect x="340" y="120" width="160" height="40" rx="4" fill="#f3f4f6" stroke="none"/>
+                    <text x="420" y="145" font-family="sans-serif" font-size="14" fill="#4b5563" text-anchor="middle">PL (Prompt Logic)</text>
+
+                    <!-- Bottom Layer: Runtime -->
+                    <rect x="50" y="190" width="500" height="30" rx="15" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+                    <text x="300" y="210" font-family="sans-serif" font-size="12" fill="#9ca3af" text-anchor="middle">AI Runtime / LLM Models Base</text>
+                </svg>
+            </div>
+            <div class="svg-copyright">© Force Cheng × FALO</div>
+
+            <div class="intro-text">
+                <p>
+                    在 AI 原生時代，軟體開發的經濟模型正在經歷劇烈的地殼變動。傳統以程式碼堆疊為核心的資產累積模式，正在被以「語意密度」為核心的架構模式所取代。FALO 方法論的核心，在於重新定義人、AI 與系統邊界之間的關係。
+                </p>
+            </div>
+            
+            <!-- AI Summary (GEO Optimized) -->
+            <section class="ai-summary">
+                <p><strong>AI Summary:</strong> This article introduces the FALO methodology, proposing that in the AI era, semantic architecture precedes system design (SA >> SD), and rebuild-first economics outperform traditional maintenance-driven development. It emphasizes high semantic density over code volume.</p>
+            </section>
+        </div>
+
+        <!-- Core Grid: 核心不等式並排 -->
+        <div class="core-grid">
+            
+            <!-- 核心不等式 1: SA >> SD -->
+            <div class="core-card">
+                <h2>1. 語意架構的位階轉移</h2>
+                <div class="emphasis-box">
+                    <div class="formula">SA <span class="operator">>></span> SD</div>
+                    <div class="formula-caption">Semantic Architecture 遠大於 Software Development</div>
+                    <div class="formula-anchor">Defining the semantic boundary is more critical than writing the code.</div>
+                </div>
+                <p>
+                    過去的軟體工程（Software Development, SD）強調的是功能實作、語法正確性與模組化。然而，當 AI 能夠以極低的成本生成程式碼時，競爭的護城河不再是「如何寫出程式碼」，而是「如何精準定義意圖」。
+                </p>
+                <p>
+                    <span class="highlight">SA (Semantic Architecture)</span> 是指將業務邏輯轉化為 AI 可無損理解的語意結構。在 FALO 框架中，我們不再將系統視為靜態的程式碼庫，而是視為動態的語意流。架構師的職責從「設計類別與資料庫」，轉變為「設計語意邊界與上下文協議」。
+                </p>
+            </div>
+
+            <!-- 核心不等式 2: PL >> PM -->
+            <div class="core-card">
+                <h2>2. 提示詞邏輯優於管理</h2>
+                <div class="emphasis-box">
+                    <div class="formula">PL <span class="operator">>></span> PM</div>
+                    <div class="formula-caption">Prompt Logic 遠大於 Prompt Management</div>
+                    <div class="formula-anchor">Structural logic governs generation; libraries just manage fragments.</div>
+                </div>
+                <p>
+                    市面上充斥著大量的 Prompt Engineering 技巧，試圖透過管理大量的提示詞庫（Prompt Management, PM）來優化輸出。FALO 認為這是一種戰術上的勤奮，戰略上的懶惰。
+                </p>
+                <ul>
+                    <li><strong>PM (Prompt Management)：</strong>關注於蒐集、分類、微調個別的 Prompt 語句。</li>
+                    <li><strong>PL (Prompt Logic)：</strong>關注於資訊流動的邏輯結構。如何透過 Broker 機制，讓複雜任務被正確拆解（Decompose）並分派給適合的模型。</li>
+                </ul>
+                <p>
+                    擁有強大的 PL，即使是用樸素的自然語言，也能驅動 AI 產出高品質結果；反之，若邏輯混亂，再華麗的 Prompt 詞藻也只是隨機性賭博。
+                </p>
+            </div>
+
+        </div>
+
+        <!-- 重建經濟學 (Full Width) -->
+        <section>
+            <h2>3. 重建經濟學 (Reconstruction Economics)</h2>
+            <div class="svg-container svg-card" style="max-width: 700px;">
+                <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="50" y1="250" x2="650" y2="250" stroke="#1f2937" stroke-width="2" />
+                    <line x1="50" y1="250" x2="50" y2="50" stroke="#1f2937" stroke-width="2" />
+                    
+                    <text x="650" y="270" font-family="sans-serif" font-size="12" fill="#4b5563" text-anchor="end">Complexity / Time</text>
+                    <text x="40" y="40" font-family="sans-serif" font-size="12" fill="#4b5563" text-anchor="middle">Cost</text>
+
+                    <!-- Curve 1: Traditional Maintenance -->
+                    <path d="M50,200 Q350,190 600,50" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="500" y="60" font-family="sans-serif" font-size="12" fill="#9ca3af">Traditional Maintenance</text>
+
+                    <!-- Curve 2: FALO Rebuild -->
+                    <path d="M50,200 L200,200 L200,220 L400,220 L400,230 L600,230" fill="none" stroke="#C5A028" stroke-width="3"/>
+                    <text x="500" y="220" font-family="sans-serif" font-size="12" font-weight="bold" fill="#C5A028">FALO Rebuild with AI</text>
+
+                    <circle cx="280" cy="155" r="4" fill="#EA4335" />
+                    <text x="300" y="155" font-family="sans-serif" font-size="12" fill="#EA4335" font-weight="bold">AI Advantage Gap</text>
+                </svg>
+            </div>
+            <div class="svg-copyright">© Force Cheng × FALO</div>
+            
+            <p>
+                傳統 IT 系統最怕「打掉重練」，因為遷移成本（Migration Cost）極高。但在 AI 賦能下，程式碼的生成成本趨近於零，維護舊系統的認知成本反而成為最大負債。
+            </p>
+            <p>
+                <strong>「可拋棄性」成為新時代的系統特徵。</strong>
+            </p>
+            <p>
+                FALO 提倡的重建經濟學主張：<br>
+                若修改一個模組的 Prompt 與 Context 成本，低於閱讀並理解舊程式碼的成本，那麼<span class="highlight">「重建」就比「維護」更具經濟效益</span>。我們應當構建「容易被 AI 重寫」的系統，而非「容易被人類維護」的系統。
+            </p>
+            <h3>結論</h3>
+            <p>
+                這不只是技術棧的改變，而是資產定義的改變。在 2026 年，企業的核心資產將不再是千萬行的 Legacy Code，而是高度結構化、去模糊化的<strong>企業語意庫（Enterprise Semantic Base）</strong>。
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <span class="footer-brand">© Force Cheng × FALO</span>
+            <div style="margin-bottom: 8px;">
+                Author: Force Cheng · 
+                <a href="https://www.linkedin.com/in/force-cheng-taiwan/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+            </div>
+            <div>最後更新時間：2026-02-03</div>
+        </div>
+    </footer>
+
+    <!-- Feature Scripts (Minimal) -->
+    <script>
+        const root = document.documentElement;
+        const themeBtn = document.getElementById('themeToggle');
+
+        let theme = 'light';
+
+        // Theme Toggle Logic
+        themeBtn.onclick = () => {
+            theme = theme === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', theme);
+        };
+    </script>
+</body>
+</html>
