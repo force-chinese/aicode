@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <!--
+    Author: Force Cheng
+    LinkedIn: https://www.linkedin.com/in/force-cheng-taiwan/
+    Methodology: Vibe Code × Spiral Dual Runtime
+    Version: v1.06
+    Created: 2026/01/01
+    Last Updated: 2026/02/09
+    © 2026 Force Cheng × FALO
+
+    This file is a static, GitHub Pages-friendly concept visualization.
+    No source code, API, or system implementation is included.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO / GEO Meta Tags -->
+    <meta name="description" content="A stable AI delivery methodology using Google Gemini Canvas and ChatGPT Codex. Spiral iteration, dual-runtime strategy, and SOP emergence for ISO 42001 governance.">
+    <meta name="keywords" content="Vibe Code, AI methodology, Google Canvas, ChatGPT Codex, stable AI use, SOP emergence, ISO 42001">
+    <meta name="author" content="Force Cheng">
+    <meta name="robots" content="index, follow">
+    <!-- Note: Replace href with your actual GitHub Pages URL -->
+    <link rel="canonical" href="https://force-cheng-taiwan.github.io/vibe-code-methodology/">
+
+    <title>Vibe Code: Spiral Dual-Runtime Methodology v1.06</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Theme Variables */
+            --bg-body: #FFFFFF;
+            --text-main: #1F2937;
+            --text-sub: #4B5563;
+            --card-bg: #F9FAFB;
+            --border-color: #E5E7EB;
+            --preface-bg: #EFF6FF;
+            --preface-border: #DBEAFE;
+            
+            /* Brand Colors (Google & Force Gold) */
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --force-gold: #D4AF37;
+            
+            /* Specific Tool Accents */
+            --accent-canvas: #4285F4; /* Google Blue for Canvas */
+            --accent-codex: #D4AF37;  /* Force Gold for Codex */
+        }
+
+        /* Dark Mode Variables */
+        html[data-theme="dark"] {
+            --bg-body: #0F172A;
+            --text-main: #F3F4F6;
+            --text-sub: #9CA3AF;
+            --card-bg: #1E293B;
+            --border-color: #334155;
+            --preface-bg: rgba(30, 58, 138, 0.2);
+            --preface-border: rgba(30, 58, 138, 0.4);
+            --accent-canvas: #8AB4F8; /* Lighter Blue for Dark Mode */
+            --accent-codex: #FCD34D;  /* Lighter Gold for Dark Mode */
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Highlight Classes */
+        .highlight-canvas {
+            color: var(--accent-canvas);
+            font-weight: 700;
+        }
+        
+        .highlight-codex {
+            color: var(--accent-codex);
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section-container {
+            padding: 4rem 1.5rem;
+            max-width: 1024px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .preface-box {
+            background-color: var(--preface-bg);
+            border: 1px solid var(--preface-border);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        /* Spiral Animation */
+        @keyframes dash {
+            to { stroke-dashoffset: -200; }
+        }
+        .spiral-path {
+            stroke-dasharray: 10, 10;
+            animation: dash 15s linear infinite;
+        }
+
+        /* Theme Toggle */
+        .toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        .badge-canvas { background-color: rgba(66, 133, 244, 0.1); color: var(--accent-canvas); }
+        .badge-codex { background-color: rgba(212, 175, 55, 0.1); color: var(--accent-codex); }
+        .badge-idea { background-color: rgba(107, 114, 128, 0.1); color: var(--text-sub); }
+        
+        .deliverable-tag {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            font-family: monospace;
+            background: rgba(0,0,0,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Language Visibility Classes */
+        html[lang="en"] .lang-zh { display: none !important; }
+        html[lang="zh"] .lang-en { display: none !important; }
+
+        /* Print Specific Styles */
+        @media print {
+            body {
+                background-color: white !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Hide UI Elements */
+            .no-print, nav, footer, button, .toggle-btn {
+                display: none !important;
+            }
+
+            /* Show Print Header */
+            .print-only-header {
+                display: block !important;
+                text-align: center;
+                border-bottom: 2px solid #000;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+            }
+
+            /* Reset Layouts for Print */
+            .section-container {
+                padding: 1rem 0;
+                border-bottom: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+
+            .card, .preface-box {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                background-color: white !important;
+                page-break-inside: avoid;
+            }
+
+            /* SVG Print Adjustments */
+            .spiral-path {
+                animation: none !important; /* Stop animation for print */
+                stroke-dasharray: none !important;
+            }
+            
+            svg {
+                max-height: 400px; /* Constrain height for print */
+            }
+
+            /* Text Contrast */
+            p, h1, h2, h3, h4, span {
+                color: black !important;
+            }
+            
+            /* Ensure Colors for Emphasis still show but high contrast */
+            .highlight-canvas { color: #2563EB !important; }
+            .highlight-codex { color: #B45309 !important; }
+        }
+        
+        .print-only-header { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Print Header (Visible only in print) -->
+    <div class="print-only-header">
+        <h1 class="text-3xl font-bold mb-2">Vibe Code: Spiral Dual-Runtime Methodology</h1>
+        <div class="flex flex-col gap-1 text-sm font-mono mt-4">
+            <div class="flex justify-between">
+                <span>Author: Force Cheng</span>
+                <span>Version: v1.06</span>
+            </div>
+            <div class="flex justify-between">
+                <span>LinkedIn: linkedin.com/in/force-cheng-taiwan/</span>
+                <span>Date: 2026/02/09</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-opacity-80 border-b border-[var(--border-color)] bg-[var(--bg-body)] no-print">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <div class="font-bold text-xl tracking-tight">
+                Vibe Code <span class="text-xs font-normal text-[var(--text-sub)] ml-2">by Force Cheng</span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Language Toggle -->
+                <div class="flex bg-gray-100 dark:bg-gray-800 rounded-full p-1 border border-[var(--border-color)]">
+                    <button onclick="setLang('en')" id="btn-en" class="px-3 py-1 text-xs font-bold rounded-full transition-colors bg-[var(--text-main)] text-[var(--bg-body)]">EN</button>
+                    <button onclick="setLang('zh')" id="btn-zh" class="px-3 py-1 text-xs font-bold rounded-full transition-colors text-[var(--text-sub)]">中文</button>
+                </div>
+
+                <!-- Print Button -->
+                <button onclick="window.print()" class="toggle-btn hover:bg-gray-100 dark:hover:bg-gray-800" title="Print as PDF">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                </button>
+
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme()" class="toggle-btn hover:bg-gray-100 dark:hover:bg-gray-800" title="Toggle Dark Mode">
+                    <!-- Sun Icon -->
+                    <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <!-- Moon Icon -->
+                    <svg id="icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 24.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="section-container text-center pt-16 pb-12 border-none">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
+            <span class="lang-en">Stable AI Delivery with Vibe Code</span>
+            <span class="lang-zh hidden">在 AI 快速變動中，<br class="hidden md:block"/>用大廠工具走穩自己的 Vibe Code</span>
+        </h1>
+        <h2 class="text-lg md:text-xl text-[var(--text-sub)] max-w-3xl mx-auto font-light leading-relaxed">
+            <span class="lang-en">
+                Use <span class="highlight-canvas">Google Gemini Canvas</span> and <span class="highlight-codex">ChatGPT Codex</span> happily.<br>
+                Build a robust, repeatable AI workflow.
+            </span>
+            <span class="lang-zh hidden">
+                快樂使用 <span class="highlight-canvas">Google Gemini Canvas</span> 與 <span class="highlight-codex">ChatGPT Codex</span>，<br class="hidden md:inline" />
+                建立穩健、可重複的 AI 使用方法
+            </span>
+        </h2>
+    </header>
+
+    <!-- Preface Section -->
+    <section class="section-container pt-0 pb-16 border-none">
+        <div class="preface-box">
+            <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-[var(--google-blue)]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="lang-en">Preface: A Strategy for Stability</span>
+                <span class="lang-zh hidden">前言：穩定落地的戰略</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm md:text-base">
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] mb-2">
+                        <span class="lang-en">1. Dual Runtime is a Stability Strategy</span>
+                        <span class="lang-zh hidden">1. 雙工具是穩定策略 (Dual Runtime)</span>
+                    </h4>
+                    <p class="text-[var(--text-sub)] mb-4">
+                        <span class="lang-en">
+                            AI tools change fast. We use <span class="highlight-canvas">Google Gemini Canvas</span> and <span class="highlight-codex">ChatGPT Codex</span> to avoid lock-in and ensure stability. It's about backup and complementary vibes.
+                        </span>
+                        <span class="lang-zh hidden">
+                            主流 AI 工具快速更替，單押一套風險高。我們採用 <span class="highlight-canvas">Google Gemini Canvas</span> 與 <span class="highlight-codex">ChatGPT Codex</span> 兩套大廠主流工具作為備份／備援，目的在於「穩定 Vibe Code」。
+                        </span>
+                    </p>
+                    <h4 class="font-bold text-[var(--text-main)] mb-2">
+                        <span class="lang-en">2. Focus on "Stable Landing"</span>
+                        <span class="lang-zh hidden">2. 關注「穩定落地」</span>
+                    </h4>
+                    <p class="text-[var(--text-sub)]">
+                        <span class="lang-en">It's not just about speed. It's about being repeatable, deliverable, and maintainable for real-world projects.</span>
+                        <span class="lang-zh hidden">不只做得快，而是能反覆做對、可交付、可維護。這套方法適合真實專案與長期使用，而非一次性 Demo。</span>
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[var(--text-main)] mb-2">
+                        <span class="lang-en">3. SOPs Emerge Naturally</span>
+                        <span class="lang-zh hidden">3. SOP 是流程的自然產物</span>
+                    </h4>
+                    <p class="text-[var(--text-sub)] mb-4">
+                        <span class="lang-en">SOPs are not written upfront. They grow from successful iterations between Canvas and Codex.</span>
+                        <span class="lang-zh hidden">SA 文件與 SOP 不是預先寫好的，而是在 Canvas ↔ Codex 的反覆成功中自然長出來的。做對後再整理，才是符合人性的治理。</span>
+                    </p>
+                    <h4 class="font-bold text-[var(--text-main)] mb-2">
+                        <span class="lang-en">4. A Pragmatic Methodology</span>
+                        <span class="lang-zh hidden">4. 2026 務實落地方法論</span>
+                    </h4>
+                    <p class="text-[var(--text-sub)]">
+                        <span class="lang-en">Force Cheng's 2026 approach: Don't panic about tool evolution. Focus on phase-based runtime collaboration.</span>
+                        <span class="lang-zh hidden">這是 Force 老師在 2026 上半年提出的階段性合用 Runtime 策略，面對工具演進，不焦慮，只聚焦於價值交付。</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Spiral Model -->
+    <section class="section-container">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Comparison -->
+            <div class="lg:col-span-4 flex flex-col justify-center">
+                <h3 class="text-2xl font-bold mb-6 text-[var(--google-green)]">Spiral Iteration Model</h3>
+                
+                <div class="mb-8 opacity-70">
+                    <div class="flex items-center gap-2 mb-2 text-[var(--google-red)] font-bold">
+                        <span>✕</span> 
+                        <span class="lang-en">Linear Myth</span>
+                        <span class="lang-zh hidden">線性誤區</span>
+                    </div>
+                    <div class="text-sm font-mono text-[var(--text-sub)] pl-6 border-l-2 border-red-100">
+                        Idea → Canvas → Codex → Done
+                        <div class="text-xs text-red-400 mt-1">
+                            <span class="lang-en">* Dead End</span>
+                            <span class="lang-zh hidden">* 死胡同</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center gap-2 mb-2 text-[var(--google-green)] font-bold">
+                        <span>✓</span> 
+                        <span class="lang-en">Spiral Reality</span>
+                        <span class="lang-zh hidden">螺旋常態</span>
+                    </div>
+                    <div class="text-sm font-mono text-[var(--text-sub)] pl-6 border-l-2 border-green-100 space-y-2">
+                        <div>Idea</div>
+                        <div class="opacity-50">↓</div>
+                        <div>(Canvas ↔ Codex)</div>
+                        <div class="opacity-50">↓</div>
+                        <div>(Canvas ↔ Codex)</div>
+                        <div class="opacity-50">↓ × N</div>
+                        <div class="font-bold">Stable Product</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Visualization -->
+            <div class="lg:col-span-8 flex justify-center">
+                <!-- SVG Spiral Visualization -->
+                <svg class="w-full max-w-md h-[600px]" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradient-spiral" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="var(--text-sub)" stop-opacity="0.3"/>
+                            <stop offset="20%" stop-color="var(--accent-canvas)" />
+                            <stop offset="50%" stop-color="var(--accent-codex)" />
+                            <stop offset="80%" stop-color="var(--accent-canvas)" />
+                            <stop offset="100%" stop-color="var(--accent-codex)" />
+                        </linearGradient>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--text-sub)" opacity="0.5"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- The Spiral Path -->
+                    <path d="M 200 40 
+                             C 280 40, 280 120, 200 120 
+                             C 120 120, 120 220, 200 220 
+                             C 280 220, 280 340, 200 340 
+                             C 120 340, 120 460, 200 460
+                             C 280 460, 280 560, 200 560" 
+                          stroke="url(#gradient-spiral)" 
+                          stroke-width="4"
+                          fill="none"
+                          stroke-linecap="round"
+                          class="spiral-path" />
+
+                    <!-- Layer 0 -->
+                    <g transform="translate(200, 40)">
+                        <circle r="6" fill="#9CA3AF" />
+                        <text x="20" y="5" font-size="12" font-weight="bold" fill="var(--text-main)">Layer 0: Idea</text>
+                        <text x="20" y="20" font-size="10" fill="var(--text-sub)">RT: ChatGPT / Gemini</text>
+                        <text x="-180" y="5" font-size="10" fill="var(--text-sub)" text-anchor="start" font-family="monospace">Del: Decision</text>
+                    </g>
+
+                    <!-- Layer 1 -->
+                    <g transform="translate(200, 150)">
+                        <circle r="8" fill="var(--accent-canvas)" />
+                        <text x="-20" y="5" font-size="12" font-weight="bold" fill="var(--accent-canvas)" text-anchor="end">Layer 1: Canvas POC</text>
+                        <text x="-20" y="20" font-size="10" fill="var(--accent-canvas)" text-anchor="end" font-weight="bold">RT: Gemini Canvas</text>
+                        <text x="30" y="5" font-size="10" fill="var(--text-sub)" font-family="monospace">Del: Visual Prototype</text>
+                    </g>
+
+                    <!-- Layer 2 -->
+                    <g transform="translate(200, 280)">
+                        <circle r="8" fill="var(--accent-codex)" />
+                        <text x="20" y="5" font-size="12" font-weight="bold" fill="var(--accent-codex)">Layer 2: Codex MVP</text>
+                        <text x="20" y="20" font-size="10" fill="var(--accent-codex)" font-weight="bold">RT: ChatGPT Codex</text>
+                        <text x="-180" y="5" font-size="10" fill="var(--text-sub)" font-family="monospace">Del: Stable Structure</text>
+                    </g>
+
+                    <!-- Layer 3 -->
+                    <g transform="translate(200, 400)">
+                        <circle r="8" fill="var(--accent-canvas)" opacity="0.8" />
+                        <text x="-20" y="5" font-size="12" font-weight="bold" fill="var(--accent-canvas)" text-anchor="end">Layer 3: Canvas UI+</text>
+                        <text x="-20" y="20" font-size="10" fill="var(--accent-canvas)" text-anchor="end" font-weight="bold">RT: Gemini Canvas</text>
+                        <text x="30" y="5" font-size="10" fill="var(--text-sub)" font-family="monospace">Del: UI Iteration</text>
+                    </g>
+
+                    <!-- Layer 4 -->
+                    <g transform="translate(200, 520)">
+                        <circle r="10" fill="var(--accent-codex)" stroke="var(--bg-body)" stroke-width="2" />
+                        <text x="20" y="5" font-size="12" font-weight="bold" fill="var(--accent-codex)">Layer 4: Production</text>
+                        <text x="20" y="20" font-size="10" fill="var(--accent-codex)" font-weight="bold">RT: ChatGPT Codex</text>
+                        <text x="-180" y="5" font-size="10" fill="var(--text-sub)" font-family="monospace">Del: Release-Ready</text>
+                    </g>
+                    
+                    <!-- Loop Indicator -->
+                    <path d="M 200 560 C 140 560, 140 220, 190 220" 
+                          stroke="var(--text-sub)" 
+                          stroke-width="1" 
+                          stroke-dasharray="4,4"
+                          fill="none" 
+                          opacity="0.3"
+                          marker-end="url(#arrowhead)"/>
+                    <text x="100" y="400" font-size="10" fill="var(--text-sub)" opacity="0.5" transform="rotate(-90 100 400)">Cycle Repeat × N</text>
+
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Dual Runtime Strategy -->
+    <section class="section-container bg-[var(--card-bg)] rounded-3xl my-8 border border-[var(--border-color)]">
+        <div class="text-center mb-10">
+            <h3 class="text-3xl font-bold mb-4">
+                <span class="lang-en">Dual Runtime Strategy</span>
+                <span class="lang-zh hidden">Dual Runtime 策略</span>
+            </h3>
+            <p class="text-[var(--text-sub)]">
+                <span class="lang-en">Phase-fit, not competition.</span>
+                <span class="lang-zh hidden">不是誰取代誰，而是階段性合用</span>
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Google Canvas Card -->
+            <div class="p-8 rounded-2xl border-2 border-transparent hover:border-blue-100 bg-white dark:bg-gray-800 transition-colors">
+                <div class="text-[var(--google-blue)] font-bold text-xl mb-2 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    Google Gemini Canvas
+                </div>
+                <div class="badge badge-canvas mb-4">
+                    <span class="lang-en">The Creative Vibe</span>
+                    <span class="lang-zh hidden">創意與視覺 Vibe</span>
+                </div>
+                <ul class="text-[var(--text-sub)] space-y-2 text-sm">
+                    <li>
+                        ⚡ 
+                        <span class="lang-en"><b>Fast</b>: Instant visualization</span>
+                        <span class="lang-zh hidden"><b>快 (Fast)</b>：讓想法瞬間變成畫面</span>
+                    </li>
+                    <li>
+                        👀 
+                        <span class="lang-en"><b>Visual</b>: WYSIWYG, beginner friendly</span>
+                        <span class="lang-zh hidden"><b>視覺友善</b>：所見即所得，小白無痛上手</span>
+                    </li>
+                    <li>
+                        🎯 
+                        <span class="lang-en"><b>Phase</b>: Layer 1 (POC) / Layer 3 (UI Iteration)</span>
+                        <span class="lang-zh hidden"><b>適合階段</b>：Layer 1 (POC) / Layer 3 (UI Iteration)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ChatGPT Codex Card -->
+            <div class="p-8 rounded-2xl border-2 border-transparent hover:border-yellow-100 bg-white dark:bg-gray-800 transition-colors">
+                <div class="text-[var(--force-gold)] font-bold text-xl mb-2 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    ChatGPT Codex
+                </div>
+                <div class="badge badge-codex mb-4">
+                    <span class="lang-en">The Structural Vibe</span>
+                    <span class="lang-zh hidden">結構與穩定 Vibe</span>
+                </div>
+                <ul class="text-[var(--text-sub)] space-y-2 text-sm">
+                    <li>
+                        🏛️ 
+                        <span class="lang-en"><b>Structured</b>: Engineering standards</span>
+                        <span class="lang-zh hidden"><b>結構化 (Structured)</b>：邏輯嚴謹，符合工程標準</span>
+                    </li>
+                    <li>
+                        🛡️ 
+                        <span class="lang-en"><b>Stable</b>: Maintainable & scalable</span>
+                        <span class="lang-zh hidden"><b>穩定 (Stable)</b>：可維護、可擴充、可交接</span>
+                    </li>
+                    <li>
+                        🎯 
+                        <span class="lang-en"><b>Phase</b>: Layer 2 (MVP) / Layer 4 (Production)</span>
+                        <span class="lang-zh hidden"><b>適合階段</b>：Layer 2 (MVP) / Layer 4 (Production)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: SOP Emergence & Governance -->
+    <section class="section-container border-none">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+            <div class="md:col-span-5">
+                <h3 class="text-2xl font-bold mb-4 text-[var(--text-main)]">SOP Emergence & Governance</h3>
+                <p class="text-sm text-[var(--text-sub)] mb-6">
+                    <span class="lang-en">Aligned with ISO/IEC 42001:<br>Governance enables expansion, not restriction.</span>
+                    <span class="lang-zh hidden">符合 ISO/IEC 42001 思維：<br>治理不是限制，而是為了更穩健的擴展。</span>
+                </p>
+                <div class="card p-6 border-l-4 border-l-[var(--google-green)]">
+                    <p class="font-bold text-lg mb-2">"SOP is emerged, not prescribed."</p>
+                    <p class="text-sm text-[var(--text-sub)]">
+                        <span class="lang-en">Documents are harvested. SA (System Architecture) docs are generated during the Codex stabilization phase as traceable evidence.</span>
+                        <span class="lang-zh hidden">文件是長出來的。SA (System Architecture) 文件會在 Codex 穩定化階段被「收割」出來，作為可回溯的治理證據。</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="md:col-span-7">
+                <!-- Evolution Flow -->
+                <div class="flex flex-col gap-4 mb-8">
+                    <div class="flex items-center gap-4 text-sm">
+                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold">1</div>
+                        <div><span class="font-bold">Concept SOP</span> (Human Idea)</div>
+                    </div>
+                    <div class="h-4 border-l-2 border-dashed border-gray-300 ml-4"></div>
+                    <div class="flex items-center gap-4 text-sm">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 font-bold">2</div>
+                        <div><span class="font-bold highlight-canvas">POC SOP</span> (Canvas Output)</div>
+                    </div>
+                    <div class="h-4 border-l-2 border-dashed border-gray-300 ml-4"></div>
+                    <div class="flex items-center gap-4 text-sm">
+                        <div class="w-8 h-8 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600 font-bold">3</div>
+                        <div><span class="font-bold highlight-codex">Engineering SOP</span> (Codex Structure)</div>
+                    </div>
+                    <div class="h-4 border-l-2 border-dashed border-gray-300 ml-4"></div>
+                    <div class="flex items-center gap-4 text-sm">
+                        <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-600 font-bold">4</div>
+                        <div><span class="font-bold text-green-600">Archivable SOP</span> (Governance Ready)</div>
+                    </div>
+                </div>
+
+                <!-- Mini Checklist -->
+                <div class="bg-[var(--card-bg)] p-4 rounded-xl text-sm mb-6">
+                    <h4 class="font-bold mb-2 text-[var(--text-main)]">Mini Verification Checklist</h4>
+                    <ul class="space-y-2 text-[var(--text-sub)]">
+                        <li class="flex items-center gap-2">
+                            ✅ 
+                            <span class="lang-en">Deliverables in every cycle</span>
+                            <span class="lang-zh hidden">每一圈都有可交付產物 (Deliverables)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            ✅ 
+                            <span class="lang-en">Version control & timestamp (Traceability)</span>
+                            <span class="lang-zh hidden">每一圈都有版本與時間戳 (Traceability)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            ✅ 
+                            <span class="lang-en">SOP is archived after iteration</span>
+                            <span class="lang-zh hidden">SOP 是迭代後歸檔，而非預寫</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- SOP Explanation Card (New Added) -->
+                <div class="mt-6 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl text-sm border border-[var(--border-color)]">
+                    <h4 class="font-bold mb-3 text-[var(--text-main)] flex items-center gap-2">
+                        <svg class="w-4 h-4 text-[var(--text-sub)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="lang-en">Why 4 SOPs? & Why Dual Tools?</span>
+                        <span class="lang-zh hidden">補充說明：四種 SOP 與雙工具</span>
+                    </h4>
+                    
+                    <!-- EN Content -->
+                    <div class="lang-en space-y-3 text-[var(--text-sub)]">
+                        <div>
+                            <p class="font-semibold text-xs text-[var(--text-main)] mb-1">Why four types of SOPs?</p>
+                            <p class="text-xs">They represent the same work at different maturity stages:<br>Concept → POC → Engineering → Archivable.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-xs text-[var(--text-main)] mb-1">Why Canvas + Codex?</p>
+                            <ul class="list-disc pl-4 space-y-1 text-xs">
+                                <li><b>Canvas</b> shapes workflows quickly.</li>
+                                <li><b>Codex</b> stabilizes what works into maintainable references.</li>
+                            </ul>
+                            <p class="mt-1 text-xs italic opacity-80">SOPs emerge from successful iterations, not upfront paperwork.</p>
+                        </div>
+                    </div>
+
+                    <!-- ZH Content -->
+                    <div class="lang-zh hidden space-y-4 text-[var(--text-sub)]">
+                        <div>
+                            <p class="font-semibold text-xs text-[var(--text-main)] mb-1">這四種 SOP 有什麼差別？為什麼都需要？</p>
+                            <ul class="list-disc pl-4 space-y-1 text-xs">
+                                <li><b>Concept SOP</b> (概念型)：記錄想法與背景，避免遺忘初衷。</li>
+                                <li><b>POC SOP</b> (原型型)：來自 Canvas，保留實際流程與節奏。</li>
+                                <li><b>Engineering SOP</b> (工程型)：來自 Codex，穩定結構與維護性。</li>
+                                <li><b>Archivable SOP</b> (歸檔型)：整理歸檔，用於保存或分享。</li>
+                            </ul>
+                            <p class="mt-1 text-xs opacity-80">四種 SOP 對應不同成熟度階段，不是文件堆疊，也不是彼此取代。</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-xs text-[var(--text-main)] mb-1">為什麼搭配 Canvas 與 Codex？</p>
+                            <ul class="list-disc pl-4 space-y-1 text-xs">
+                                <li><b>Canvas</b> 適合早期，快速整理想法，避免一開始寫死。</li>
+                                <li><b>Codex</b> 適合穩定階段，將做法結構化，確保可維護。</li>
+                            </ul>
+                            <p class="mt-1 text-xs opacity-80">這樣的分工，讓文件成為成果的副產物，而不是額外負擔。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-[var(--border-color)] bg-[var(--card-bg)] no-print">
+        <div class="flex flex-col items-center gap-4">
+            <div class="font-bold text-[var(--text-main)]">© 2026 Force Cheng × FALO</div>
+            <div class="text-xs text-[var(--text-sub)] space-y-1">
+                <p>Created: 2026/01/01 &bull; Last Updated: 2026/02/09</p>
+                <p class="font-mono">Version: v1.06</p>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="text-sm font-bold text-[var(--text-main)] mb-1">Author: Force Cheng</div>
+                <a href="https://www.linkedin.com/in/force-cheng-taiwan/" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="text-sm text-[var(--text-sub)] hover:text-[var(--google-blue)] transition-colors flex items-center gap-1">
+                   LinkedIn · Force Cheng
+                </a>
+            </div>
+            
+            <p class="text-xs text-[var(--text-sub)] opacity-60 mt-4 max-w-md mx-auto px-4 italic">
+                "All tools are just phase-based runtimes. Evolution is spiral, not linear."
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Language Toggle Logic
+        function setLang(lang) {
+            document.documentElement.setAttribute('lang', lang);
+
+            // Toggle active button styles
+            const btnEn = document.getElementById('btn-en');
+            const btnZh = document.getElementById('btn-zh');
+
+            const activeClasses = ['bg-[var(--text-main)]', 'text-[var(--bg-body)]'];
+            const inactiveClasses = ['text-[var(--text-sub)]'];
+
+            if (lang === 'en') {
+                btnEn.classList.add(...activeClasses);
+                btnEn.classList.remove(...inactiveClasses);
+                btnZh.classList.remove(...activeClasses);
+                btnZh.classList.add(...inactiveClasses);
+                
+                // Show EN, Hide ZH
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.lang-zh').forEach(el => el.classList.add('hidden'));
+            } else {
+                btnZh.classList.add(...activeClasses);
+                btnZh.classList.remove(...inactiveClasses);
+                btnEn.classList.remove(...activeClasses);
+                btnEn.classList.add(...inactiveClasses);
+
+                // Show ZH, Hide EN
+                document.querySelectorAll('.lang-zh').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.add('hidden'));
+            }
+        }
+
+        // Dark Mode Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            updateIcons(newTheme);
+        }
+
+        function updateIcons(theme) {
+            const sun = document.getElementById('icon-sun');
+            const moon = document.getElementById('icon-moon');
+            
+            if (theme === 'dark') {
+                sun.classList.remove('hidden');
+                moon.classList.add('hidden');
+            } else {
+                sun.classList.add('hidden');
+                moon.classList.remove('hidden');
+            }
+        }
+
+        // Initialize Default Language
+        setLang('zh');
+    </script>
+</body>
+</html>
